@@ -19,7 +19,7 @@ class CreateEventsTable extends Migration
             $table->foreign('groupId')->references('id')->on('groups');
             $table->string('title', 50);
             $table->dateTime('date');
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->string('location', 100);
             $table->timestamps();
         });
