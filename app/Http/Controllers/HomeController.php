@@ -46,10 +46,10 @@ class HomeController extends Controller
         $eventLocation = Input::get('eventLocation');
 
         $messages = [
-            'max' => 'Įvedėte per daug simbolių.',
-            'min' => 'Įvedėte per mažai simbolių.',
-            'required' => 'Privalomas laukelis.',
-            'date_format' => 'Neteisingas laiko formatas, M-M-D, V:M:S.',
+            'max' => 'Too many symbols!',
+            'min' => '5 symbols minimum!',
+            'required' => 'Required fields! Title, Date and Location!',
+            'date_format' => 'Wrong date format, Y-M-D, H:M:S!',
         ];
 
         $this->validate($req, [

@@ -4,6 +4,27 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+                @if ($errors->has('eventTitle'))
+                    <span class="help-block">
+                        <div class="alert alert-danger" role="alert">
+                            <strong style="color:red;">{{ $errors->first('eventTitle') }}</strong>
+                        </div>
+                    </span>
+                @endif
+                @if ($errors->has('eventDate'))
+                    <span class="help-block">
+                        <div class="alert alert-danger" role="alert">
+                            <strong style="color:red;">{{ $errors->first('eventDate') }}</strong>
+                        </div>
+                    </span>
+                @endif
+                @if ($errors->has('eventLocation'))
+                    <span class="help-block">
+                        <div class="alert alert-danger" role="alert">
+                            <strong style="color:red;">{{ $errors->first('eventLocation') }}</strong>
+                        </div>
+                    </span>
+                @endif
                 @foreach ($events as $event)
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -32,20 +53,10 @@
                                             <div class="form-group">
                                                 <label for="eventTitle">Title</label>
                                                 <input type="text" class="form-control" id="eventTitle" placeholder="Title" value="{{ old('eventTitle') }}" name="eventTitle">
-                                                @if ($errors->has('eventTitle'))
-                                                    <span class="help-block">
-                                                    <strong>{{ $errors->first('eventTitle') }}</strong>
-                                                    </span>
-                                                @endif
                                             </div>
                                             <div class="form-group">
                                                 <label for="eventDate">Date</label>
                                                 <input type="datetime-local" class="form-control" id="eventDate" placeholder="Date" value="{{ old('eventDate') }}" name="eventDate">
-                                                @if ($errors->has('eventDate'))
-                                                    <span class="help-block">
-                                                    <strong>{{ $errors->first('eventDate') }}</strong>
-                                                    </span>
-                                                @endif
                                             </div>
                                         <div class="form-group">
                                             <label for="eventComment">Comment</label>
@@ -54,11 +65,6 @@
                                         <div class="form-group">
                                             <label for="eventLocation">Location</label>
                                             <input type="text" class="form-control" id="eventLocation" placeholder="Location" value="{{ old('eventLocation') }}" name="eventLocation">
-                                            @if ($errors->has('eventLocation'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('eventLocation') }}</strong>
-                                                    </span>
-                                            @endif
                                         </div>
                                     </div>
                                     <div class="modal-footer">
