@@ -1,9 +1,13 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row" id="loginRegisterBtn">
-        <div class="col-md-12 text-center">
-            <a href="{{ route('login') }}" class="btn btn-primary btn-lg" id="login-btn">Login</a>
-            <a href="{{ route('register') }}" class="btn btn-success btn-lg" id="register-btn">Register</a>
+    <header>
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="{{ route('login') }}" class="btn-round" id="login-btn">Prisijungti</a>
+            </div>
+            <div class="col-sm-6">
+                <a href="{{ route('register') }}" class="btn-round" id="register-btn">Registruotis</a>
+            </div>
         </div>
-    </div>
+    </header>
 @endsection

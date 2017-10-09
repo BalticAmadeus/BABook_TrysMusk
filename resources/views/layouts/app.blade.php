@@ -14,20 +14,102 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-        body {
+        header {
             background-image: url("../images/spaceAndLogo.jpg");
-            background-repeat: no-repeat;
+            background-position: center;
             background-size: cover;
-            background-position-x: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
-        #loginRegisterBtn{
+        header>div{
+            margin-top: 70vh;
+        }
+
+
+        #login-btn, #register-btn:hover{
+            background-color: #b700b9;
+            color: #fff;
+            font-size: 1.3em;
+        }
+        #register-btn, #login-btn:hover {
+            color: #fff;
+            background-color: inherit;
+            border: 1px solid #fff;
+            font-size: 1.3em;
+        }
+        .btn-round{
+            border-radius: 19px !important;
+            padding: 10px 50px;
+        }
+
+        /*==================================================
+=            Bootstrap 3 Media Queries             =
+==================================================*/
+
+        /*==========  Mobile First Method  ==========*/
+
+        /* Custom, iPhone Retina */
+        @media only screen and (min-width : 320px) {
 
         }
-        #login-btn{
-            background-color: #1ce3e8;
+
+        /* Extra Small Devices, Phones */
+        @media only screen and (min-width : 480px) {
+
         }
-        #register-btn{
-            background-color: #b700b9;
+
+        /* Small Devices, Tablets */
+        @media only screen and (min-width : 768px) {
+
+        }
+
+        /* Medium Devices, Desktops */
+        @media only screen and (min-width : 992px) {
+
+        }
+
+        /* Large Devices, Wide Screens */
+        @media only screen and (min-width : 1200px) {
+
+        }
+
+        /*==========  Non-Mobile First Method  ==========*/
+
+        /* Large Devices, Wide Screens */
+        @media only screen and (max-width : 1200px) {
+
+        }
+
+        /* Medium Devices, Desktops */
+        @media only screen and (max-width : 992px) {
+
+        }
+
+        /* Small Devices, Tablets */
+        @media only screen and (max-width : 768px) {
+            #register-btn, #register-btn:hover{
+                font-size: 1em;
+                color: #fff;
+                text-decoration: underline;
+                background-color: inherit;
+                border: none;
+            }
+            #register-btn:hover{
+                text-decoration: none;
+            }
+        }
+
+        /* Extra Small Devices, Phones */
+        @media only screen and (max-width : 480px) {
+
+        }
+
+        /* Custom, iPhone Retina */
+        @media only screen and (max-width : 320px) {
+
         }
     </style>
 </head>
@@ -36,10 +118,9 @@
         @guest
             @else
                 @include('inc.navbar')
-                @endguest
-                <div class="container">
-                    @yield('content')
-                </div>
+            @endguest
+                @yield('content')
+
     </div>
 
     <!-- Scripts -->
