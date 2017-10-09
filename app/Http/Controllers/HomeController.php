@@ -33,7 +33,10 @@ class HomeController extends Controller
         return view('home', ['events' => $events]);
     }
 
-    public function newEvent()
+    /**
+     * @return mixed
+     */
+    public function newEvent(Request $req)
     {
         $event = new Event;
         $id = Auth::user()->id;
@@ -41,6 +44,19 @@ class HomeController extends Controller
         $eventDate = Input::get('eventDate');
         $eventComment = Input::get('eventComment');
         $eventLocation = Input::get('eventLocation');
+
+        $messages = [
+            'max' => 'Įvedėte per daug simbolių.',
+            'min' => 'Įvedėte per mažai simbolių.',
+            'required' => 'Privalomas laukelis.',
+            'date_format' => 'Neteisingas laiko formatas, M-M-D, V:M:S.',
+        ];
+
+        $this->validate($req, [
+            'eventTitle' => 'required|max:30|min:2',
+            'eventLocation' => 'required|max:100|min:5',
+            'eventDate' => 'date_format:M-M-D, V:M:S.',
+        ], $messages);
 
         $event->groupId = 1;
         $event->userId = $id;

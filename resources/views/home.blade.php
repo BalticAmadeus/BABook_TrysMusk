@@ -33,11 +33,21 @@
                                     <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="eventTitle">Title</label>
-                                                <input type="text" class="form-control" id="eventTitle" placeholder="Title" name="eventTitle">
+                                                <input type="text" class="form-control" id="eventTitle" placeholder="Title" value="{{ old('eventTitle') }}" name="eventTitle">
+                                                @if ($errors->has('eventTitle'))
+                                                    <span class="help-block">
+                                                    <strong>{{ $errors->first('eventTitle') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                             <div class="form-group">
                                                 <label for="eventDate">Date</label>
-                                                <input type="text" class="form-control" id="eventDate" placeholder="Date" name="eventDate">
+                                                <input type="datetime-local" class="form-control" id="eventDate" placeholder="Date" value="{{ old('eventDate') }}" name="eventDate">
+                                                @if ($errors->has('eventDate'))
+                                                    <span class="help-block">
+                                                    <strong>{{ $errors->first('eventDate') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         <div class="form-group">
                                             <label for="eventComment">Comment</label>
@@ -45,7 +55,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="eventLocation">Location</label>
-                                            <input type="text" class="form-control" id="eventLocation" placeholder="Location" name="eventLocation">
+                                            <input type="text" class="form-control" id="eventLocation" placeholder="Location" value="{{ old('eventLocation') }}" name="eventLocation">
+                                            @if ($errors->has('eventLocation'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('eventLocation') }}</strong>
+                                                    </span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="modal-footer">
