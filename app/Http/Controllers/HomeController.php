@@ -55,7 +55,6 @@ class HomeController extends Controller
         $this->validate($req, [
             'eventTitle' => 'required|max:30|min:2',
             'eventLocation' => 'required|max:100|min:5',
-            'eventDate' => 'date_format:M-M-D, V:M:S.',
         ], $messages);
 
         $event->groupId = 1;
