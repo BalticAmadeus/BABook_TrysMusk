@@ -13,13 +13,23 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("../images/space.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        @include('inc.navbar')
-        <div class="container">
-            @yield('content')
-        </div>
+        @guest
+            @else
+                @include('inc.navbar')
+                @endguest
+                <div class="container">
+                    @yield('content')
+                </div>
     </div>
 
     <!-- Scripts -->
