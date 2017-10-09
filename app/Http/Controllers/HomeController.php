@@ -37,13 +37,17 @@ class HomeController extends Controller
     {
         $event = new Event;
         $id = Auth::user()->id;
+        $eventTitle = Input::get('eventTitle');
+        $eventDate = Input::get('eventDate');
+        $eventComment = Input::get('eventComment');
+        $eventLocation = Input::get('eventLocation');
 
         $event->groupId = 1;
         $event->userId = $id;
-        $event->title = Input::get('eventTitle');
-        $event->date = Input::get('eventDate');
-        $event->comment = Input::get('eventComment');
-        $event->location = Input::get('eventLocation');
+        $event->title = $eventTitle;
+        $event->date = $eventDate;
+        $event->comment = $eventComment;
+        $event->location = $eventLocation;
         $event->save();
 
         return Redirect::back();
