@@ -9,7 +9,7 @@ class EventsController extends Controller
 
     public function index()
     {
-        return Event::all();
+        return Event::orderBy('date', 'desc')->get();
     }
 
     public function show($id)
@@ -19,6 +19,15 @@ class EventsController extends Controller
 
     public function store(Request $request)
     {
+//        $data = $request->all();
+//        $event = new Event;
+//        $groupId = $data['groupId'];
+//        $userId = $data['userId'];
+//        $title = $data['title'];
+//        $date = $data['date'];
+//        $comment = $data['comment'];
+//        $location = $data['location'];
+
         return Event::create($request->all());
     }
 
