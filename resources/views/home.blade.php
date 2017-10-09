@@ -24,19 +24,9 @@
                     </div>
                 </span>
             @endif
-            @foreach ($events as $event)
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{{ $event->title }}</h3>
-                    </div>
-                    <div class="panel-body">
-                        <i>{{ $event->comment }}</i><br>
-                        {{ $event->date }}<br>
-                        {{ $event->location }}
-                    </div>
-                    <button type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-check" aria-hidden="true"></i></button>
+                <div id="eventsList">
+                    
                 </div>
-            @endforeach
                     <div class="modal fade" id="eventModal" role="dialog">
                         <div class="modal-dialog">
 
