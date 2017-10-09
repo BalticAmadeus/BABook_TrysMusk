@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
 @section('head')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
 
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 @endsection
 
 @section('content')
@@ -55,11 +54,16 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="eventDate">Date</label>
-                                            <input type="datetime-local" class="form-control" id="eventDate" placeholder="Date" value="{{ old('eventDate') }}" name="eventDate">
+                                            <div class='input-group date' id='eventDate'>
+                                                <input type='text' class="form-control" name="eventDate" value="{{ old('eventDate') }}"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </div>
                                     <div class="form-group">
                                         <label for="eventComment">Comment</label>
-                                        <input type="text" class="form-control" id="eventComment" placeholder="Comment" name="eventComment">
+                                        <input type="text" class="form-control" id="eventComment" placeholder="Comment" value="{{ old('eventLocation') }}" name="eventComment">
                                     </div>
                                     <div class="form-group">
                                         <label for="eventLocation">Location</label>
@@ -82,8 +86,10 @@
 </div>
 
 <script type="text/javascript">
-    $(function() {
-        $('#datetimepicker1').datetimepicker();
+    $(function () {
+        $('#eventDate').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm'
+        });
     });
 </script>
 @endsection
