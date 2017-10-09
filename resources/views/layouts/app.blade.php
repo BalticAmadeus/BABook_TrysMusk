@@ -15,9 +15,19 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         body {
-            background-image: url("../images/space.jpg");
+            background-image: url("../images/spaceAndLogo.jpg");
             background-repeat: no-repeat;
             background-size: cover;
+            background-position-x: center;
+        }
+        #loginRegisterBtn{
+
+        }
+        #login-btn{
+            background-color: #1ce3e8;
+        }
+        #register-btn{
+            background-color: #b700b9;
         }
     </style>
 </head>

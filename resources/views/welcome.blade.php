@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <div class="jumbotron text-center">
-        <h1>If <strong>YOU</strong> don't know what to do...</h1>
-        <h2>Go to BAbook</h2>
-        <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-        <a href="{{ route('register') }}" class="btn btn-success">Register</a>
+    <div class="row" id="loginRegisterBtn">
+        <div class="col-md-12 text-center">
+            <a href="{{ route('login') }}" class="btn btn-primary btn-lg" id="login-btn">Login</a>
+            <a href="{{ route('register') }}" class="btn btn-success btn-lg" id="register-btn">Register</a>
+        </div>
     </div>
 @endsection
