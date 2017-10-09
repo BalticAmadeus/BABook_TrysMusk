@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -52,6 +53,9 @@
                                 <li>
                                     <a href="">Groups</a>
                                 </li>
+                            <li>
+                                <a href="#" data-target="#eventModal" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true" style="font-size: 12px;"></i> Event</a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>

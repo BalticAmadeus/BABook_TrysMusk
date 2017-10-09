@@ -4,21 +4,19 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
+                @foreach ($events as $event)
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ $event->title }}</h3>
                         </div>
-                    @endif
-
-                    You are logged in!
-                        <!-- Trigger the modal with a button -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#eventModal">New Event</button>
-
-                        <!-- Modal -->
+                        <div class="panel-body">
+                            <i>{{ $event->comment }}</i><br>
+                            {{ $event->date }}<br>
+                            {{ $event->location }}
+                        </div>
+                        <button type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-check" aria-hidden="true"></i></button>
+                    </div>
+                @endforeach
                         <div class="modal fade" id="eventModal" role="dialog">
                             <div class="modal-dialog">
 
@@ -75,22 +73,6 @@
 
                 </div>
             </div>
-        </div>
-
-        <div class="col-md-2">
-                @foreach ($events as $event)
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{{ $event->title }}</h3>
-                    </div>
-                    <div class="panel-body">
-                        {{ $event->comment }}
-                        {{ $event->date }}
-                        {{ $event->location }}
-                    </div>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
-                </div>
-                    @endforeach
         </div>
     </div>
 </div>
