@@ -25,7 +25,7 @@
                 </span>
             @endif
                 <div id="eventsList">
-                    
+
                 </div>
                     <div class="modal fade" id="eventModal" role="dialog">
                         <div class="modal-dialog">
