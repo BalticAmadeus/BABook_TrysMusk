@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('head')
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -37,7 +45,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">New Event</h4>
                         </div>
-                        <form method="PUT" action="/home">
+                        <form method="PUT">
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <div class="form-group">
@@ -46,7 +54,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="eventDate">Date</label>
-                                    <input type="datetime-local" class="form-control" id="eventDate" placeholder="Date" value="{{ old('eventDate') }}" name="eventDate">
+                                    <div class='input-group date' id='eventDate'>
+                                        <input type='text' class="form-control" name="eventDate" value="{{ old('eventDate') }}"/>
+                                        <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="eventComment">Comment</label>
@@ -70,4 +83,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#eventDate').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm'
+        });
+    });
+</script>
 @endsection
