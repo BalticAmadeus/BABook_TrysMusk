@@ -54,7 +54,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="eventDate">Date</label>
-                                            <input type="datetime-local" class="form-control" id="eventDate" placeholder="Date" value="{{ old('eventDate') }}" name="eventDate">
+                                            <div class='input-group date' id='eventDate'>
+                                                <input type='text' class="form-control" name="eventDate" value="{{ old('eventDate') }}"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </div>
                                     <div class="form-group">
                                         <label for="eventComment">Comment</label>
