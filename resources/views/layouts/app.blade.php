@@ -21,7 +21,7 @@
             border: none;
         }
 
-        .dropdown-menu{
+        #dropdownM{
             background: rgba(10, 0, 10, 0.5);
             color: #666666;
         }
