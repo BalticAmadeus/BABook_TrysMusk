@@ -50,7 +50,7 @@
             height: 100vh;
         }
 
-        .panel{
+        #authPanel{
             margin-top: 20%;
             //background: rgba(10, 0, 10, 0.3);
         }
