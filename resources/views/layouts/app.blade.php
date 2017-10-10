@@ -13,7 +13,10 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
     @yield('head')
     <style>
         .navbar-inverse{
@@ -21,14 +24,29 @@
             border: none;
         }
 
-        .dropdown-menu{
+        #dropdownM{
             background: rgba(10, 0, 10, 0.5);
             color: #666666;
         }
 
-        .dropdown-menu > li > a:hover{
+        .navbar-inverse .navbar-nav > li > a,
+        #dropdownM > li > a{
+            color: #f80aaf;
+            text-transform: uppercase;
+        }
+
+        #dropdownM > li > a:hover{
             color: #666666;
             background: none;
+        }
+        .navbar-brand{
+            padding: 0px;
+        }
+
+        .navbar-brand>img {
+            height: 100%;
+            padding: 0px;
+            width: auto;
         }
 
         header {
@@ -54,7 +72,7 @@
 
         #authPanel{
             margin-top: 20%;
-        //background: rgba(10, 0, 10, 0.3);
+            //background: rgba(10, 0, 10, 0.3);
         }
 
         .navbar{
@@ -153,10 +171,10 @@
         @guest
             @else
                 @include('inc.navbar')
-                @endguest
-                <div class="container">
-                    @yield('content')
-                </div>
+            @endguest
+            <div class="container-fluid">
+                @yield('content')
+            </div>
     </div>
 
     <!-- Scripts -->

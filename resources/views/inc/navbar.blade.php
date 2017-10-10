@@ -12,7 +12,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/home') }}">
-                BAbook
+                <img src="/images/babookWithStars.png" alt="babook">
             </a>
         </div>
 
@@ -42,7 +42,7 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
-                            <ul class="dropdown-menu" role="menu">
+                            <ul class="dropdown-menu" id="dropdownM" role="menu">
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
