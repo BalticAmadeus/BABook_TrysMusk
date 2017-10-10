@@ -12,7 +12,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/home') }}">
-                BAbook
+                <img src="/images/brand.png" alt="babook">
             </a>
         </div>
 
