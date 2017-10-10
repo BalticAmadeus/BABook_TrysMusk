@@ -37,7 +37,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">New Event</h4>
                         </div>
-                        <form method="POST" action="/home">
+                        <form method="PUT" action="/home">
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <div class="form-group">
