@@ -25,12 +25,12 @@
         }
 
         .navbar-inverse .navbar-nav > li > a,
-        .dropdown-menu > li > a{
+        #dropdownM > li > a{
             color: #f80aaf;
             text-transform: uppercase;
         }
 
-        .dropdown-menu > li > a:hover{
+        #dropdownM > li > a:hover{
             color: #666666;
             background: none;
         }
