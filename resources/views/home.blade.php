@@ -45,7 +45,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">New Event</h4>
                         </div>
-                        <form method="PUT">
+                        <form>
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <div class="form-group">
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label for="eventDate">Date</label>
                                     <div class='input-group date' id='eventDate'>
-                                        <input type='text' class="form-control" name="eventDate" value="{{ old('eventDate') }}"/>
+                                        <input type='text' class="form-control" id="eventDate" name="eventDate"/>
                                         <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
@@ -70,13 +70,12 @@
                                     <input type="text" class="form-control" id="eventLocation" placeholder="Location" value="{{ old('eventLocation') }}" name="eventLocation">
                                 </div>
                             </div>
+                        </form>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary" onclick="addNewEvent()">Submit</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
-                        </form>
                     </div>
-
                 </div>
             </div>
 
