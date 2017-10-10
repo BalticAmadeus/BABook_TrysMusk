@@ -13,7 +13,7 @@
         var groupId = 1;
         var userId = 1;
         var title = $("#eventTitle").val();
-        var date = "2017-10-20 12:31";
+        var date = $("#eventDateInput").val();
         var comment = $("#eventComment").val();
         var location = $("#eventLocation").val();
 

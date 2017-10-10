@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label for="eventDate">Date</label>
                                     <div class='input-group date' id='eventDate'>
-                                        <input type='text' class="form-control" id="eventDate" name="eventDate"/>
+                                        <input type='text' class="form-control" id="eventDateInput" name="eventDate"/>
                                         <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
