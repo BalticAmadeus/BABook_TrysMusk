@@ -21,6 +21,6 @@ Route::namespace('api')->group(function () {
     Route::get('events', 'EventsController@index');
     Route::get('events/{id}', 'EventsController@show');
     Route::post('events/{id}', 'EventsController@update');
-    Route::put('events', 'EventsController@store');
+    Route::post('events', 'EventsController@store');
     Route::delete('events/{id}', 'EventsController@delete');
 });

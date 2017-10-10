@@ -11,7 +11,7 @@
 
     $.ajax({
         url: "api/events",
-        type: 'PUT',
+        type: 'POST',
         contentType: "application/json",
         success: function(res) {
             console.log(res);
