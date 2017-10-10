@@ -6,6 +6,11 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <style>
+        .help-block {
+            color: #a94442;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -37,7 +42,7 @@
                                 <div class="form-group">
                                     <label for="eventDate">Date</label>
                                     <div class='input-group date' id='eventDate'>
-                                        <input type='text' class="form-control" id="eventDateInput" name="eventDate"/>
+                                        <input type='text' class="form-control" id="eventDateInput" value="{{ old('eventDateInput') }}" name="eventDateInput"/>
                                         <span class="help-block">
                                             <strong id="errorEventDate"></strong>
                                         </span>
