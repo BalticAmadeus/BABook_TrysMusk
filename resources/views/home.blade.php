@@ -9,8 +9,9 @@
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
             @if ($errors->has('eventTitle'))
                 <span class="help-block">
                     <div class="alert alert-danger" role="alert">
@@ -53,16 +54,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="eventDate">Date</label>
-                                            <div class='input-group date' id='eventDate'>
-                                                <input type='text' class="form-control" name="eventDate" value="{{ old('eventDate') }}"/>
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                            </div>
+                                            <input type="datetime-local" class="form-control" id="eventDate" placeholder="Date" value="{{ old('eventDate') }}" name="eventDate">
                                         </div>
                                     <div class="form-group">
                                         <label for="eventComment">Comment</label>
-                                        <input type="text" class="form-control" id="eventComment" placeholder="Comment" value="{{ old('eventLocation') }}" name="eventComment">
+                                        <input type="text" class="form-control" id="eventComment" placeholder="Comment" name="eventComment">
                                     </div>
                                     <div class="form-group">
                                         <label for="eventLocation">Location</label>
