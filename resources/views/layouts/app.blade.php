@@ -17,154 +17,16 @@
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
-    @yield('head')
     <style>
-        .navbar-inverse{
-            background: rgba(10, 0, 10, 0.5);
-            border: none;
-        }
-
-        #dropdownM{
-            background: rgba(10, 0, 10, 0.5);
-            color: #666666;
-        }
-
-        .navbar-inverse .navbar-nav > li > a,
-        #dropdownM > li > a{
-            color: #f80aaf;
-            text-transform: uppercase;
-        }
-
-        #dropdownM > li > a:hover{
-            color: #666666;
-            background: none;
-        }
-        .navbar-brand{
-            padding: 0px;
-        }
-
-        .navbar-brand>img {
-            height: 100%;
-            padding: 0px;
-            width: auto;
-        }
-
         header {
-            background-image: url("../images/spaceAndLogo.jpg");
-            background-position: center;
-            background-size: cover;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        header>div{
-            margin-top: 70vh;
+            background-image: url(../images/spaceAndLogo.jpg);
         }
 
-        .container-fluid{
+        .container-fluid {
             background-image: url("../images/space.jpg");
-            background-position: center;
-            background-size: cover;
-            height: 100vh;
-        }
-
-        #authPanel{
-            margin-top: 20%;
-            //background: rgba(10, 0, 10, 0.3);
-        }
-
-        .navbar{
-            margin-bottom: 0px;
-        }
-
-
-        #login-btn, #register-btn:hover{
-            background-color: #b700b9;
-            color: #fff;
-            font-size: 1.3em;
-            text-decoration: none;
-        }
-        #register-btn, #login-btn:hover {
-            color: #fff;
-            background-color: inherit;
-            border: 1px solid #fff;
-            font-size: 1.3em;
-            text-decoration: none;
-        }
-        .btn-round{
-            border-radius: 19px !important;
-            padding: 10px 50px;
-        }
-
-        /*==================================================
-=            Bootstrap 3 Media Queries             =
-==================================================*/
-
-        /*==========  Mobile First Method  ==========*/
-
-        /* Custom, iPhone Retina */
-        @media only screen and (min-width : 320px) {
-
-        }
-
-        /* Extra Small Devices, Phones */
-        @media only screen and (min-width : 480px) {
-
-        }
-
-        /* Small Devices, Tablets */
-        @media only screen and (min-width : 768px) {
-
-        }
-
-        /* Medium Devices, Desktops */
-        @media only screen and (min-width : 992px) {
-
-        }
-
-        /* Large Devices, Wide Screens */
-        @media only screen and (min-width : 1200px) {
-
-        }
-
-        /*==========  Non-Mobile First Method  ==========*/
-
-        /* Large Devices, Wide Screens */
-        @media only screen and (max-width : 1200px) {
-
-        }
-
-        /* Medium Devices, Desktops */
-        @media only screen and (max-width : 992px) {
-
-        }
-
-        /* Small Devices, Tablets */
-        @media only screen and (max-width : 768px) {
-            #register-btn, #register-btn:hover{
-                font-size: 1em;
-                color: #fff;
-                text-decoration: underline;
-                background-color: inherit;
-                border: none;
-            }
-            #register-btn:hover{
-                text-decoration: none;
-            }
-        }
-
-        /* Extra Small Devices, Phones */
-        @media only screen and (max-width : 480px) {
-
-        }
-
-        /* Custom, iPhone Retina */
-        @media only screen and (max-width : 320px) {
-
         }
     </style>
+    @yield('head')
 </head>
 <body>
     <div id="app">
@@ -180,6 +42,5 @@
     <!-- Scripts -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="{{ asset('js/events.js') }}"></script>
-
 </body>
 </html>
