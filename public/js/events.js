@@ -1,3 +1,9 @@
+$(document).ready(function() {
+    getEvents();
+});
+
+
+function getEvents() {
     $.ajax({
         url: "api/events",
         type: 'GET',
@@ -8,8 +14,9 @@
             });
         }
     });
+}
 
-    function addNewEvent() {
+function addNewEvent() {
         var groupId = 1;
         var userId = 1;
         var title = $("#eventTitle").val();
