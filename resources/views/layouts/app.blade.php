@@ -26,9 +26,24 @@
             color: #666666;
         }
 
+        .navbar-inverse .navbar-nav > li > a,
+        .dropdown-menu > li > a{
+            color: #f80aaf;
+            text-transform: uppercase;
+        }
+
         .dropdown-menu > li > a:hover{
             color: #666666;
             background: none;
+        }
+        .navbar-brand{
+            padding: 0px;
+        }
+
+        .navbar-brand>img {
+            height: 100%;
+            padding: 0px;
+            width: auto;
         }
 
         header {
