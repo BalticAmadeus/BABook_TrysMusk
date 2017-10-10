@@ -26,7 +26,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @guest
-                    <!-- Links For Guests-->
+                    <!-- Links  -->
                     @else
                         <li>
                             <a href="">Events</a>

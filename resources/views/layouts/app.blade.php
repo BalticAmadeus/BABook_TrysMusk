@@ -13,20 +13,29 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     @yield('head')
+    <style>
+        body {
+            background-image: url("../images/space.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        @include('inc.navbar')
-        <div class="container">
-            @yield('content')
-        </div>
+    @guest
+        @else
+            @include('inc.navbar')
+            @endguest
+            <div class="container">
+                @yield('content')
+            </div>
     </div>
 
     <!-- Scripts -->
-    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
+   {{-- <script src="{{ asset('js/app.js') }}--}}"></script>
     <script src="{{ asset('js/events.js') }}"></script>
 
 </body>
