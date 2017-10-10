@@ -1,0 +1,33 @@
+.navbar{
+  margin-bottom: 0px;
+}
+
+.navbar-inverse{
+  background: rgba(10, 0, 10, 0.5);
+  border: none;
+}
+
+#dropdownM{
+  background: rgba(10, 0, 10, 0.5);
+  color: #666666;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+#dropdownM > li > a{
+  color: $babook-pink;
+  text-transform: uppercase;
+}
+
+#dropdownM > li > a:hover{
+  color: #666666;
+  background: none;
+}
+.navbar-brand{
+  padding: 0px;
+}
+
+.navbar-brand>img {
+  height: 100%;
+  padding: 0px;
+  width: auto;
+}

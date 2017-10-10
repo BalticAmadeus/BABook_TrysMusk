@@ -9,11 +9,31 @@
         }
     });
 
-    $.ajax({
-        url: "api/events",
-        type: 'POST',
-        contentType: "application/json",
-        success: function(res) {
-            console.log(res);
-        }
-    });
+    function addNewEvent() {
+        var groupId = 1;
+        var userId = 1;
+        var title = $("#eventTitle").val();
+        var date = $("#eventDateInput").val();
+        var comment = $("#eventComment").val();
+        var location = $("#eventLocation").val();
+
+        var data = {
+            'groupId' : groupId,
+            'userId' : userId,
+            'title' : title,
+            'date' : date,
+            'comment' : comment,
+            'location' : location
+        };
+
+        $.ajax({
+            url: "api/events",
+            type: 'PUT',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function() {
+                window.location.reload(true)
+            }
+        });
+    }
+
