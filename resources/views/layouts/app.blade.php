@@ -24,18 +24,18 @@
             border: none;
         }
 
-        .dropdown-menu{
+        #dropdownM{
             background: rgba(10, 0, 10, 0.5);
             color: #666666;
         }
 
         .navbar-inverse .navbar-nav > li > a,
-        .dropdown-menu > li > a{
+        #dropdownM > li > a{
             color: #f80aaf;
             text-transform: uppercase;
         }
 
-        .dropdown-menu > li > a:hover{
+        #dropdownM > li > a:hover{
             color: #666666;
             background: none;
         }
