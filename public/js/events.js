@@ -33,7 +33,17 @@
             data: JSON.stringify(data),
             success: function() {
                 window.location.reload(true)
+            },
+            error: function (data) {
+                var errors;
+                for (d in data.responseJSON) {
+                    errors = data.responseJSON[d];
+                }
+                $("#errorEventTitle").html(errors['title']);
+                $("#errorEventLocation").html(errors['location']);
+                $("#errorEventDate").html(errors['date']);
             }
+
         });
     }
 

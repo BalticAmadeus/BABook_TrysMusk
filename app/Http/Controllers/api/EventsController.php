@@ -18,6 +18,11 @@ class EventsController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required|max:30|min:2',
+            'location' => 'required|max:100|min:5',
+            'date' => 'required|date_format:Y-m-d H:i',
+        ]);
         return Event::create($request->all());
     }
 
