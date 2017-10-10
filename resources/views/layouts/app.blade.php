@@ -14,6 +14,21 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
+        .navbar-inverse{
+            background: rgba(10, 0, 10, 0.5);
+            border: none;
+        }
+
+        .dropdown-menu{
+            background: rgba(10, 0, 10, 0.5);
+            color: #666666;
+        }
+
+        .dropdown-menu > li > a:hover{
+            color: #666666;
+            background: none;
+        }
+
         header {
             background-image: url("../images/spaceAndLogo.jpg");
             background-position: center;
@@ -28,17 +43,35 @@
             margin-top: 70vh;
         }
 
+        .container-fluid{
+            background-image: url("../images/space.jpg");
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+        }
+
+        .panel{
+            margin-top: 20%;
+            //background: rgba(10, 0, 10, 0.3);
+        }
+
+        .navbar{
+            margin-bottom: 0px;
+        }
+
 
         #login-btn, #register-btn:hover{
             background-color: #b700b9;
             color: #fff;
             font-size: 1.3em;
+            text-decoration: none;
         }
         #register-btn, #login-btn:hover {
             color: #fff;
             background-color: inherit;
             border: 1px solid #fff;
             font-size: 1.3em;
+            text-decoration: none;
         }
         .btn-round{
             border-radius: 19px !important;
@@ -119,8 +152,9 @@
             @else
                 @include('inc.navbar')
             @endguest
+            <div class="container-fluid">
                 @yield('content')
-
+            </div>
     </div>
 
     <!-- Scripts -->
