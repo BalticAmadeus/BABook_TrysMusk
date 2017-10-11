@@ -21,14 +21,15 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('auth/login', 'ApiController@login');
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::get('user', 'ApiController@getAuthUser');
-        Route::namespace('api')->group(function () {
-            Route::get('events', 'EventsController@index');
-            Route::get('events/{id}', 'EventsController@show');
-            Route::put('events', 'EventsController@store');
-            Route::post('events/{id}', 'EventsController@update');
-            Route::delete('events/{id}', 'EventsController@delete');
-        });
     });
+});
+
+Route::namespace('api')->group(function () {
+    Route::get('events', 'EventsController@index');
+    Route::get('events/{id}', 'EventsController@show');
+    Route::put('events', 'EventsController@store');
+    Route::post('events/{id}', 'EventsController@update');
+    Route::delete('events/{id}', 'EventsController@delete');
 });
 
 
