@@ -1,0 +1,38 @@
+// Colors
+$babook-pink: #f80aaf;
+
+header {
+  background-image: url("../img/spaceAndLogo.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .btn-round{
+  border-radius: 25px;
+  padding: 10px 50px;
+  }
+
+  .col-sm-12.text-center{
+    margin-top: 68vh
+  }
+
+  #login-btn, #register-btn:hover{
+    background-color: $babook-pink;
+    color: #fff;
+    font-size: 1.3em;
+    text-decoration: none;
+    border: 1px solid $babook-pink;
+  }
+
+  #register-btn, #login-btn:hover{
+    color: #fff;
+    background-color: inherit;
+    border: 1px solid #fff;
+    font-size: 1.3em;
+    text-decoration: none;
+  }
+}

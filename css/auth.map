@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "../scss/auth.css",
+	"sources": [
+		"../scss/auth.scss"
+	],
+	"sourcesContent": [
+		".container-fluid{\r\n    background-position: center;\r\n    background-size: cover;\r\n    height: 100vh;\r\n    background-image: url(\"../images/space.jpg\");\r\n  }\r\n  \r\n  #authPanel{\r\n    margin-top: 20%;\r\n  }"
+	],
+	"mappings": ";AAAA,AAAA,gBAAgB,CAAA;EACZ,mBAAmB,EAAE,MAAO;EAC5B,eAAe,EAAE,KAAM;EACvB,MAAM,EAAE,KAAM;EACd,gBAAgB,EAAE,0BAAG;CACtB;;;AAED,AAAA,UAAU,CAAA;EACR,UAAU,EAAE,GAAI;CACjB",
+	"names": []
+}

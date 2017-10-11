@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "../scss/index.css",
+	"sources": [
+		"../scss/index.scss"
+	],
+	"sourcesContent": [
+		"// Colors\r\n$babook-pink: #f80aaf;\r\n\r\nheader {\r\n  background-image: url(\"../img/spaceAndLogo.jpg\");\r\n  background-position: center;\r\n  background-size: cover;\r\n  height: 100vh;\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  text-align: center;\r\n\r\n  .btn-round{\r\n  border-radius: 25px;\r\n  padding: 10px 50px;\r\n  }\r\n\r\n  .col-sm-12.text-center{\r\n    margin-top: 68vh\r\n  }\r\n\r\n  #login-btn, #register-btn:hover{\r\n    background-color: $babook-pink;\r\n    color: #fff;\r\n    font-size: 1.3em;\r\n    text-decoration: none;\r\n    border: 1px solid $babook-pink;\r\n  }\r\n\r\n  #register-btn, #login-btn:hover{\r\n    color: #fff;\r\n    background-color: inherit;\r\n    border: 1px solid #fff;\r\n    font-size: 1.3em;\r\n    text-decoration: none;\r\n  }\r\n}"
+	],
+	"mappings": ";AAGA,AAAA,MAAM,CAAC;EACL,gBAAgB,EAAE,8BAAG;EACrB,mBAAmB,EAAE,MAAO;EAC5B,eAAe,EAAE,KAAM;EACvB,MAAM,EAAE,KAAM;EACd,OAAO,EAAE,IAAK;EACd,cAAc,EAAE,MAAO;EACvB,WAAW,EAAE,MAAO;EACpB,UAAU,EAAE,MAAO;CA0BpB;;;AAlCD,AAUE,MAVI,CAUJ,UAAU,CAAA;EACV,aAAa,EAAE,IAAK;EACpB,OAAO,EAAE,SAAU;CAClB;;;AAbH,AAeY,MAfN,CAeJ,UAAU,AAAA,YAAY,CAAA;EACpB,UAAU,EAAE,IACb;CAAC;;;AAjBJ,AAmBE,MAnBI,CAmBJ,UAAU,EAnBZ,AAmB2B,MAnBrB,CAmBQ,aAAa,AAAA,MAAM,CAAA;EAC7B,gBAAgB,EAtBN,OAAO;EAuBjB,KAAK,EAAE,IAAK;EACZ,SAAS,EAAE,KAAM;EACjB,eAAe,EAAE,IAAK;EACtB,MAAM,EAAE,GAAG,CAAC,KAAK,CA1BP,OAAO;CA2BlB;;;AAzBH,AA2BE,MA3BI,CA2BJ,aAAa,EA3Bf,AA2B2B,MA3BrB,CA2BW,UAAU,AAAA,MAAM,CAAA;EAC7B,KAAK,EAAE,IAAK;EACZ,gBAAgB,EAAE,OAAQ;EAC1B,MAAM,EAAE,cAAe;EACvB,SAAS,EAAE,KAAM;EACjB,eAAe,EAAE,IAAK;CACvB",
+	"names": []
+}

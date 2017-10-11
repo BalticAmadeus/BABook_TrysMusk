@@ -1,0 +1,14 @@
+/* line 1, C:/xampp/htdocs/frontend/scss/auth.scss */
+.container-fluid {
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  background-image: url("../images/space.jpg");
+}
+
+/* line 8, C:/xampp/htdocs/frontend/scss/auth.scss */
+#authPanel {
+  margin-top: 20%;
+}
+
+/*# sourceMappingURL=../css/auth.map */
