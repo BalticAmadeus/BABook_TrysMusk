@@ -27,9 +27,16 @@ Route::group(['middleware' => ['api']], function () {
 Route::namespace('api')->group(function () {
     Route::get('events', 'EventsController@index');
     Route::get('events/{id}', 'EventsController@show');
-    Route::put('events', 'EventsController@store');
-    Route::post('events/{id}', 'EventsController@update');
+    Route::post('events', 'EventsController@store');
+    Route::put('events/{id}', 'EventsController@update');
     Route::delete('events/{id}', 'EventsController@delete');
+
+    //invites
+//    Route::get('userevent/{eventId}', 'EventsController@index');
+    //Route::get('userevent/{id}', 'EventsController@show');
+    Route::post('userevent/{eventId}/{userId}', 'AttendanceController@store');
+    Route::put('userevent/{attendaceId}/{status}', 'AttendanceController@update');
+    //Route::delete('events/{id}', 'EventsController@delete');
 });
 
 
