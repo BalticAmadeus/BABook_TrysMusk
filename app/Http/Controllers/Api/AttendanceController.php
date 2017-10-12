@@ -30,15 +30,13 @@ class AttendanceController extends Controller
         return response()->json("Invited");
     }
 
-    public function update($attendanceId, $status)
+    public function update($eventId, $userId, $status)
     {
         DB::table('eventsUsers')
-            ->where('attendanceId', $attendanceId)
+            ->where('eventId', $eventId)
+            ->where('userId', $userId)
             ->update(['status' => $status]);
-//        $eventUser = EventsUsers::select('attendanceId', 'status')->where('attendanceId', $attendanceId)->first();
-//        $eventUser->update([
-//            "status" => $status
-//        ]);
+
         return response('success');
     }
 
