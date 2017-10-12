@@ -1,13 +1,1 @@
-time {
-    color: black;
-}
-
-.groupName {
-    font-size: 12px;
-}
-
-p {
-    color: black !important;
-}
-
-
+body{background-image:url("../img/space.jpg");background-position:center;background-size:cover;height:100vh}body nav{background-color:rgba(0,0,0,0.3)}body nav a img{height:64px}body nav .btn{text-transform:capitalize;background-color:#f80aaf;border-radius:25px}body nav .btn:hover{color:#fff;background-color:inherit;border:1px solid #fff;font-size:1.3em;text-decoration:none}body time{color:black}body .groupName{font-size:12px}body p{color:black !important}
