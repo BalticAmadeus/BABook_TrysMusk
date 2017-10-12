@@ -1,14 +1,1 @@
-/* line 1, C:/xampp/htdocs/frontend/scss/auth.scss */
-.container-fluid {
-  background-image: url("../img/space.jpg");
-  background-position: center;
-  background-size: cover;
-  height: 100vh;
-}
-
-/* line 8, C:/xampp/htdocs/frontend/scss/auth.scss */
-#authPanel {
-  margin-top: 20%;
-}
-
-/*# sourceMappingURL=../css/auth.map */
+body{background-image:url("../img/space.jpg");background-position:center;background-size:cover;height:100vh}body #loginForm{background-color:#fff;margin-top:15%;padding:15px 40px}body #loginForm .btn{text-transform:capitalize}body #loginForm .btn-round{border-radius:25px}body #loginForm #submitLogin{background-color:#f80aaf;color:#fff;font-size:1.3em;text-decoration:none;border:1px solid #f80aaf}
