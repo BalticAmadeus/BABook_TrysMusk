@@ -2,9 +2,10 @@
 
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 
-class Comment
+class Comment extends Model
 {
     protected $fillable = [
         'userId', 'eventId', 'comment'
