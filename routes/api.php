@@ -31,17 +31,13 @@ Route::namespace('api')->group(function () {
     Route::put('events/{id}', 'EventsController@update');
     Route::delete('events/{id}', 'EventsController@delete');
 
-    //invites
-//    Route::get('userevent/{eventId}', 'EventsController@index');
-    Route::get('userevent/{id}', 'AttendanceController@show');
-    Route::post('userevent/{eventId}/{userId}', 'AttendanceController@store');
-    Route::put('userevent/{attendaceId}/{status}', 'AttendanceController@update');
-    //Route::delete('events/{id}', 'EventsController@delete');
 
-    //comments
+    Route::get('userevent/{id}', 'AttendanceController@show');
+    Route::post('userevent/{eventId}/{userId}/{status}', 'AttendanceController@store');
+    Route::put('userevent/{eventId}/{userId}/{status}', 'AttendanceController@update');
+
     Route::get('comments/{eventId}', 'CommentsController@show');
     Route::post('comments/{eventId}', 'CommentsController@store');
-
 });
 
 
