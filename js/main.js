@@ -34,6 +34,10 @@ $(".createNewEvent").on('click', function(){
     $('#newEventModal').modal('open');
 });
 
+$(".attendanceBtn").on('click', function(){
+    $('#attendanceModal').modal('open');
+});
+
 function getEvents() {
     $.ajax({
         url: "http://localhost:8000/api/events",
@@ -42,7 +46,7 @@ function getEvents() {
         success: function(res) {
             console.log(res);
             $.each( res, function( i, d ) {
-                $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><div class="card__meta"><p>Alus</p><time>' + d.date + '</time></div><span class="card-title grey-text text-darken-4">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">' + d.comment + '</p> <span class="blue-text text-darken-2 card-info">' + d.location + '</span></div><div class="card-action"> <a class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">check</i></a> <a class="btn-floating btn-large waves-effect waves-light orange"><i class="material-icons">group</i></a> <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">send</i></a></div></div></div>');
+                $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><div class="card__meta"><p>Alus</p><time>' + d.date + '</time></div><span class="card-title grey-text text-darken-4">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">' + d.comment + '</p> <span class="blue-text text-darken-2 card-info">' + d.location + '</span></div><div class="card-action"> <a class="btn-floating btn-large waves-effect waves-light green eventId' + d.id + '" onclick="attendance(' + d.id + ')"><i class="material-icons">check</i></a> <a class="btn-floating btn-large waves-effect waves-light orange modal-trigger attendanceBtn" href="#attendanceModal" onclick="getParticipants(' + d.id + ')"><i class="material-icons">group</i></a> <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">send</i></a></div></div></div>');
             });
         }
     });
@@ -74,6 +78,67 @@ function addNewEvent() {
         data: JSON.stringify(data),
         success: function() {
             window.location.reload(true)
+        }
+    });
+}
+
+function attendance(eventId) {
+    var userId = 1;
+    var event = $(".eventId" + eventId);
+
+    if(event.hasClass('green')) {
+        var status = 2;
+        var data = {
+            'userId' : 1,
+            'eventId' : eventId,
+            'status' : status
+        };
+
+        $.ajax({
+            url: "http://localhost:8000/api/userevent/" + eventId + "/" + userId + "/" + status,
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function () {
+                event.removeClass('green');
+                event.addClass('red');
+                event.html('<i class="material-icons">cancel</i>');
+            }
+        });
+    } else {
+        status = 1;
+        data = {
+            'userId' : userId,
+            'eventId' : eventId,
+            'status' : status
+        };
+
+        $.ajax({
+            url: "http://localhost:8000/api/userevent/" + eventId + "/" + userId + "/" + status,
+            type: 'PUT',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function () {
+                event.removeClass('red');
+                event.addClass('green');
+                event.html('<i class="material-icons">check</i>');
+            }
+        });
+    }
+
+
+
+
+
+}
+
+function getParticipants(eventId) {
+    $.ajax({
+        url: "http://localhost:8000/api/userevent/" + eventId,
+        type: 'GET',
+        contentType: "application/json",
+        success: function(res) {
+            console.log(res);
         }
     });
 }
