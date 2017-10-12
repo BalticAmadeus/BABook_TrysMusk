@@ -3,15 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\EventsUsers;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class AttendanceController extends Controller
 {
     public function show($eventId)
     {
-        return EventsUsers::where('eventId', '=', $eventId)->get();
+        $eventUsers = EventsUsers::where('eventId', '=', $eventId)->with('users')->get(['eventId', 'status', 'userId']);
+        $data = [];
+        foreach ($eventUsers as $eventUser) {
+            $temp = [
+                "userId" => $eventUser->userId,
+                "name" => $eventUser->users[0]->name,
+                "status" => $eventUser->status
+            ];
+            array_push($data, $temp);
+        }
+
+        return $data;
     }
 
     public function store($eventId, $userId, $status)

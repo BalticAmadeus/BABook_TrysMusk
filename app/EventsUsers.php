@@ -10,4 +10,9 @@ class EventsUsers extends Model
     protected $fillable = [
         'userId', 'eventId', 'status'
     ];
+
+    public function users() {
+        return $this->hasMany('App\User', 'id', 'userId')->select(array('id', 'name'));
+    }
+
 }
