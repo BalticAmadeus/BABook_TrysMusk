@@ -32,7 +32,7 @@ Route::namespace('api')->group(function () {
     Route::delete('events/{id}', 'EventsController@delete');
 
 
-    Route::get('userevent/{id}', 'AttendanceController@show');
+    Route::get('userevent/{eventId}', 'AttendanceController@show');
     Route::post('userevent/{eventId}/{userId}/{status}', 'AttendanceController@store');
     Route::put('userevent/{eventId}/{userId}/{status}', 'AttendanceController@update');
 

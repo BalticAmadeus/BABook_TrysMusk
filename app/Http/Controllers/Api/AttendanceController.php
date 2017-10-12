@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
-//    public function index()
-//    {
-//        return EventsUsers::all();
-//    }
-//
     public function show($eventId)
     {
         return EventsUsers::where('eventId', '=', $eventId)->get();
