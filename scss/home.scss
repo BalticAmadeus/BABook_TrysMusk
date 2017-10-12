@@ -17,14 +17,18 @@ body{
     .btn{
       text-transform: capitalize;
       background-color: $babook-pink;
+      border: 1px solid $babook-pink;
       border-radius: 25px;
+    }
+
+    .dropdown-content li a{
+      color: $babook-pink;
     }
 
     .btn:hover{
       color: #fff;
       background-color: inherit;
       border: 1px solid #fff;
-      font-size: 1.3em;
       text-decoration: none;
     }
   }
