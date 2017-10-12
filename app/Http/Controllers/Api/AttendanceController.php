@@ -19,12 +19,12 @@ class AttendanceController extends Controller
         return EventsUsers::where('eventId', '=', $eventId)->get();
     }
 
-    public function store($eventId, $userId)
+    public function store($eventId, $userId, $status)
     {
         $eventUser = new EventsUsers();
         $eventUser -> eventId = $eventId;
         $eventUser -> userId = $userId;
-        $eventUser -> status = 3;
+        $eventUser -> status = $status;
         $eventUser->save();
 
         return response()->json("Invited");
