@@ -1,10 +1,31 @@
-.container-fluid{
+// Colors
+$babook-pink: #f80aaf;
+
+body{
+  background-image: url("../img/space.jpg");
   background-position: center;
   background-size: cover;
   height: 100vh;
-  background-image: url("../img/space.jpg");
-}
 
-#authPanel{
-  margin-top: 20%;
+  #loginForm{
+    background-color: #fff;
+    margin-top: 15%;
+    padding: 15px 40px;
+
+    .btn{
+      text-transform: capitalize;
+    }
+
+    .btn-round{
+      border-radius: 25px;
+    }
+
+    #submitLogin{
+      background-color: $babook-pink;
+      color: #fff;
+      font-size: 1.3em;
+      text-decoration: none;
+      border: 1px solid $babook-pink;
+    }
+  }
 }
