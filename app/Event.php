@@ -11,6 +11,11 @@ class Event extends Model
 
     public function group()
     {
-        return $this->belongsTo('App\Group', 'groupId')->select(array('id', 'name'));
+        return $this->belongsTo('App\Group', 'groupId')->select(['id', 'name']);
     }
+
+    /*public function attendance()
+    {
+        return $this->belongsTo('App\Group', 'groupId')->select(['id', 'name']);
+    }*/
 }

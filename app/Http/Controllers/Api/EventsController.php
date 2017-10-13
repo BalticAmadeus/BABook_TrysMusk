@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Event;
+use App\EventsUsers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class EventsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Event::all()->group;
+        $userId = $request->userId;
+
+        return Event::with('group')->get(['id', 'groupId', 'title', 'date', 'comment', 'location']);
     }
 
     public function show($id)
