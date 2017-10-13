@@ -10,12 +10,12 @@ class EventsController extends Controller
 {
     public function index()
     {
-        return Event::all();
+        return Event::all()->group;
     }
 
     public function show($id)
     {
-        return Event::find($id);
+        return Event::find($id)->get(['id', 'groupId', 'userId', 'title', 'date', 'comment', 'location']);
     }
 
     public function store(Request $request)
