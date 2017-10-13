@@ -49,6 +49,10 @@ body{
         display: inline-block;
         column-break-inside: avoid;
 
+        .card-title{
+          color: $babook-pink;
+        }
+
         .card-action{
           background-color: transparent;
         }
