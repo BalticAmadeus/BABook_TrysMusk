@@ -42,15 +42,18 @@ $(".inviteBtn").on('click', function(){
     $('#inviteModal').modal('open');
 });
 
+$("#newCommentBtn").on('click', function () {
+    newComment();
+});
+
 function getEvents() {
     $.ajax({
         url: "http://localhost:8000/api/events",
         type: 'GET',
         contentType: "application/json",
         success: function(res) {
-            console.log(res);
             $.each( res, function( i, d ) {
-                $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><div class="card__meta"><p>Alus</p><time>' + d.date + '</time></div><span class="card-title grey-text text-darken-4">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">' + d.comment + '</p> <span class="blue-text text-darken-2 card-info">' + d.location + '</span></div><div class="card-action"> <a class="btn-floating btn-large waves-effect waves-light green eventId' + d.id + '" onclick="attendance(' + d.id + ')"><i class="material-icons">check</i></a> <a class="btn-floating btn-large waves-effect waves-light orange modal-trigger attendanceBtn" href="#attendanceModal" onclick="getParticipants(' + d.id + ')"><i class="material-icons">group</i></a> <a class="btn-floating btn-large waves-effect waves-light red modal-trigger inviteBtn" href="#inviteModal"><i class="material-icons">send</i></a> <a class="btn-floating btn-large waves-effect waves-light red modal-trigger commentBtn" href="#commentModal"><i class="material-icons">comment</i></a></div></div></div>');
+                $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><div class="card__meta"><p>Alus</p><time>' + d.date + '</time></div><span class="card-title grey-text text-darken-4">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">' + d.comment + '</p> <span class="blue-text text-darken-2 card-info">' + d.location + '</span></div><div class="card-action"> <a class="btn-floating btn-large waves-effect waves-light green eventId' + d.id + '" onclick="attendance(' + d.id + ')"><i class="material-icons">check</i></a> <a class="btn-floating btn-large waves-effect waves-light orange modal-trigger attendanceBtn" href="#attendanceModal" onclick="getParticipants(' + d.id + ')"><i class="material-icons">group</i></a> <a class="btn-floating btn-large waves-effect waves-light red modal-trigger inviteBtn" href="#inviteModal"><i class="material-icons">send</i></a> <a class="btn-floating btn-large waves-effect waves-light red modal-trigger commentBtn"' + d.id + ' href="#commentModal"' + d.id + ' onclick="getComments(' + d.id + ')"><i class="material-icons">comment</i></a></div></div></div>');
             });
         }
     });
@@ -137,6 +140,9 @@ function attendance(eventId) {
 }
 
 function getParticipants(eventId) {
+    $("#going").html("");
+    $("#notGoing").html("");
+    $("#unanswered").html("");
     $.ajax({
         url: "http://localhost:8000/api/userevent/" + eventId,
         type: 'GET',
@@ -156,20 +162,34 @@ function getParticipants(eventId) {
     });
 }
 
-function postComment(eventId) {
-    var event = $(".eventId" + eventId);
+function getComments(eventId) {
+    $("#comments").html("");
+    $.ajax({
+        url: "http://localhost:8000/api/comments/" + eventId,
+        type: 'GET',
+        contentType: "application/json",
+        success: function(res) {
+            console.log(res);
+            $("#commentModal").attr('data-id', eventId);
+            $.each( res, function( i, d ) {
+                $("#comments").append('<p>' + d.name + ' : ' + d.comment + '</p>');
+            });
+        }
+    });
+}
+
+function newComment() {
+    var eventId = $("#commentModal").attr('data-id');
+    var userId = 1;
+    var text = $("#commentText").val();
 
     var data = {
-        'groupId' : groupId,
         'userId' : userId,
-        'title' : title,
-        'date' : datetime,
-        'comment' : comment,
-        'location' : location
+        'comment' : text
     };
 
     $.ajax({
-        url: "http://localhost:8000/api/events",
+        url: "http://localhost:8000/api/comments/" + eventId,
         type: 'POST',
         contentType: "application/json",
         data: JSON.stringify(data),
@@ -178,4 +198,5 @@ function postComment(eventId) {
         }
     });
 }
+
 
