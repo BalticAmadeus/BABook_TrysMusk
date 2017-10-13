@@ -53,7 +53,7 @@ function getEvents() {
         contentType: "application/json",
         success: function(res) {
             $.each( res, function( i, d ) {
-                $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><div class="card__meta"><p>Alus</p><time>' + d.date + '</time></div><span class="card-title grey-text text-darken-4">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">' + d.comment + '</p> <span class="blue-text text-darken-2 card-info">' + d.location + '</span></div><div class="card-action"> <a class="btn-floating btn-large waves-effect waves-light green eventId' + d.id + '" onclick="attendance(' + d.id + ')"><i class="material-icons">check</i></a> <a class="btn-floating btn-large waves-effect waves-light orange modal-trigger attendanceBtn" href="#attendanceModal" onclick="getParticipants(' + d.id + ')"><i class="material-icons">group</i></a> <a class="btn-floating btn-large waves-effect waves-light red modal-trigger inviteBtn" href="#inviteModal"><i class="material-icons">send</i></a> <a class="btn-floating btn-large waves-effect waves-light red modal-trigger commentBtn"' + d.id + ' href="#commentModal"' + d.id + ' onclick="getComments(' + d.id + ')"><i class="material-icons">comment</i></a></div></div></div>');
+                $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><div class="card__meta"><p>Alus</p><time>' + d.date + '</time></div><span class="card-title grey-text text-darken-4">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">' + d.comment + '</p> <span class="blue-text text-darken-2 card-info">' + d.location + '</span></div><div class="card-action"> <a class="btn-floating btn-large waves-effect waves-light green eventId' + d.id + '" onclick="attendance(' + d.id + ')"><i class="material-icons">check</i></a> <a class="btn-floating btn-large waves-effect waves-light orange modal-trigger attendanceBtn" href="#attendanceModal" onclick="getParticipants(' + d.id + ')"><i class="material-icons">group</i></a> <a class="btn-floating btn-large waves-effect waves-light red modal-trigger inviteBtn" href="#inviteModal"><i class="material-icons">send</i></a> <a class="btn-floating btn-large waves-effect waves-light red modal-trigger commentBtn" href="#commentModal"' + d.id + ' onclick="getComments(' + d.id + ')"><i class="material-icons">comment</i></a></div></div></div>');
             });
         }
     });
@@ -94,7 +94,7 @@ function attendance(eventId) {
     var event = $(".eventId" + eventId);
 
     if(event.hasClass('green')) {
-        var status = 2;
+        var status = 1;
         var data = {
             'userId' : 1,
             'eventId' : eventId,
@@ -113,7 +113,7 @@ function attendance(eventId) {
             }
         });
     } else {
-        status = 1;
+        status = 2;
         data = {
             'userId' : userId,
             'eventId' : eventId,
@@ -163,7 +163,6 @@ function getParticipants(eventId) {
 }
 
 function getComments(eventId) {
-    $("#comments").html("");
     $.ajax({
         url: "http://localhost:8000/api/comments/" + eventId,
         type: 'GET',
@@ -194,7 +193,7 @@ function newComment() {
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function() {
-            window.location.reload(true)
+            getComments(eventId);
         }
     });
 }
