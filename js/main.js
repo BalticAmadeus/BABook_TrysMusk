@@ -132,11 +132,6 @@ function attendance(eventId) {
             }
         });
     }
-
-
-
-
-
 }
 
 function getParticipants(eventId) {
