@@ -1,5 +1,8 @@
 // Colors
 $babook-pink: #f80aaf;
+$babook-blue: #44ccff;
+$babook-green: #0af89d;
+$babook-violet: #8a02fa;
 
 body{
   background-image: url("../img/space.jpg");
@@ -33,6 +36,16 @@ body{
     }
   }
 
+  #addNewEventBtn{
+    background-color: $babook-pink;
+    border-radius: 25px;
+  }
+
+  #cancelNewEventBtn{
+    background-color: $babook-violet;
+    border-radius: 25px;
+  }
+
     .events {
       column-width: 320px;
       column-gap: 15px;
@@ -55,6 +68,27 @@ body{
 
         .card-action{
           background-color: transparent;
+
+          .attend i{
+            background-color: $babook-pink;
+          }
+
+          .parti i{
+            background-color: $babook-blue;
+          }
+
+          .inviteBtn i{
+            background-color: $babook-green;
+          }
+
+          .commentBtn i{
+            background-color: $babook-violet;
+          }
+
+          .btn-floating{
+            margin-left: 4px;
+            margin-right: 4px;
+          }
         }
       }
     }
