@@ -11,9 +11,9 @@ class EventsController extends Controller
 {
     public function index(Request $request)
     {
-        $userId = $request->userId;
+        $userId = 1;
 
-        return Event::with('group')->get(['id', 'groupId', 'title', 'date', 'comment', 'location']);
+        return Event::with('group', 'participants')->get(['id', 'groupId', 'title', 'date', 'comment', 'location']);
     }
 
     public function show($id)

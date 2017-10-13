@@ -14,8 +14,8 @@ class Event extends Model
         return $this->belongsTo('App\Group', 'groupId')->select(['id', 'name']);
     }
 
-    /*public function attendance()
+    public function participants()
     {
-        return $this->belongsTo('App\Group', 'groupId')->select(['id', 'name']);
-    }*/
+        return $this->hasMany('App\EventsUsers', 'eventId')->select(['eventId', 'userId', 'status']);
+    }
 }

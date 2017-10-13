@@ -27,6 +27,7 @@ class CommentsController extends Controller
             $temp = [
                 "eventId" => $comment->eventId,
                 "userId" => $comment->user->id,
+                "name" => $comment->user->name,
                 "comment" => $comment->comment
             ];
             array_push($data, $temp);
