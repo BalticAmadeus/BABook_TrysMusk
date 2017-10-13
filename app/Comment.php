@@ -11,4 +11,9 @@ class Comment extends Model
         'userId', 'eventId', 'comment'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'userId')->select(array('id', 'name'));
+    }
+
 }

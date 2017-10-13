@@ -21,6 +21,17 @@ class CommentsController extends Controller
 
     public function show($eventId)
     {
-        return Comment::where('eventId', '=', $eventId)->get();
+        $comments = Comment::where('eventId', '=', $eventId)->with('user')->get(['eventId', 'comment', 'userId']);
+        $data = [];
+        foreach ($comments as $comment) {
+            $temp = [
+                "eventId" => $comment->eventId,
+                "name" => $comment->user->name,
+                "comment" => $comment->comment
+            ];
+            array_push($data, $temp);
+        }
+
+        return $data;
     }
 }
