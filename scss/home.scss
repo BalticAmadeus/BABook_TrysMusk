@@ -33,44 +33,37 @@ body{
     }
   }
 
-  time {
-    color: black;
-  }
+    .events {
+      column-width: 320px;
+      column-gap: 15px;
+      width: 90%;
+      max-width: 1100px;
+      margin: 50px auto;
 
-  .groupName {
-    font-size: 12px;
-  }
-  #eventsList{
-    p {
-      color: black;
+      .card {
+        background: #fefefe;
+        border: 2px solid #fcfcfc;
+        box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+        margin: 0 2px 15px;
+        padding: 15px;
+        padding-bottom: 10px;
+        transition: opacity .4s ease-in-out;
+        display: inline-block;
+        column-break-inside: avoid;
+
+        #eventsList {
+          p {
+            color: black;
+          }
+
+          time {
+            color: black;
+          }
+
+          .groupName {
+            font-size: 12px;
+          }
+        }
+      }
     }
   }
-
-  footer{
-    margin-top: 100px;
-    position: relative;
-    width: 100%;
-    height: 100px;
-    background: $babook-pink;
-
-    p{
-        color: white;
-        margin-top: 20px;
-    }
-  }
-
-  footer:after{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    content: '';
-    background: inherit;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    transform-origin: top left;
-    transform: skewY(-3deg);
-    z-index: -1;
-  }
-}
