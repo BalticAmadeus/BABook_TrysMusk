@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     public function eventsusers()
     {
-        return $this->belongsToMany('App\EventsUsers', 'App\EventsUsers', 'userId');
+        return $this->belongsToMany('App\EventsUsers', 'App\User', 'id', 'userId');
     }
 
     public function comments()
