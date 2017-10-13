@@ -163,6 +163,7 @@ function getParticipants(eventId) {
 }
 
 function getComments(eventId) {
+    $("#comments").html("");
     $.ajax({
         url: "http://localhost:8000/api/comments/" + eventId,
         type: 'GET',
@@ -194,6 +195,7 @@ function newComment() {
         data: JSON.stringify(data),
         success: function() {
             getComments(eventId);
+            $("#commentText").val("");
         }
     });
 }
