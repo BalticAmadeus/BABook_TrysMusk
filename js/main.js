@@ -143,6 +143,38 @@ function getParticipants(eventId) {
         contentType: "application/json",
         success: function(res) {
             console.log(res);
+            $.each( res, function( i, d ) {
+                if(d.status === 1) {
+                    $("#going").append('<p>' + d.name + '</p>');
+                } else if (d.status === 2) {
+                    $("#notGoing").append('<p>' + d.name + '</p>');
+                } else {
+                    $("#unanswered").append('<p>' + d.name + '</p>');
+                }
+            });
+        }
+    });
+}
+
+function postComment(eventId) {
+    var event = $(".eventId" + eventId);
+
+    var data = {
+        'groupId' : groupId,
+        'userId' : userId,
+        'title' : title,
+        'date' : datetime,
+        'comment' : comment,
+        'location' : location
+    };
+
+    $.ajax({
+        url: "http://localhost:8000/api/events",
+        type: 'POST',
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function() {
+            window.location.reload(true)
         }
     });
 }
