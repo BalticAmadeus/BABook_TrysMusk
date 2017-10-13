@@ -13,7 +13,7 @@ header {
 
   .row{
     .col-s12{
-      margin-top: 72vh
+      margin-top: 70vh
     }
 
     .btn-round{
@@ -27,8 +27,9 @@ header {
     #login-btn{
       background-color: $babook-pink;
       color: #fff;
-      font-size: 1.3em;
+      font-size: 1.4em;
       text-decoration: none;
+      border: 1px solid $babook-pink;
       border: 1px solid $babook-pink;
     }
 
@@ -36,7 +37,7 @@ header {
       color: #fff;
       background-color: inherit;
       border: 1px solid #fff;
-      font-size: 1.3em;
+      font-size: 1.4em;
       text-decoration: none;
     }
   }

@@ -11,9 +11,22 @@ body{
     background-color: #fff;
     margin-top: 15%;
     padding: 15px 40px;
+    -webkit-animation-duration: 0.5s;
+
+    #emailInput{
+      -webkit-animation-duration: 0.5s;
+      -webkit-animation-delay: 0.5s;
+    }
+
+    #passwordInput{
+      -webkit-animation-duration: 0.5s;
+      -webkit-animation-delay: 1s;
+    }
 
     .btn{
       text-transform: capitalize;
+      -webkit-animation-duration: 0.5s;
+      -webkit-animation-delay: 1.5s;
     }
 
     .btn-round{
