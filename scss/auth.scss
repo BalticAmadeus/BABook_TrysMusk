@@ -1,5 +1,6 @@
 // Colors
 $babook-pink: #f80aaf;
+$text-color: #9e9e9e;
 
 body{
   background-image: url("../img/space.jpg");
@@ -8,10 +9,14 @@ body{
   height: 100vh;
 
   #loginForm{
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
     margin-top: 15%;
     padding: 15px 40px;
     -webkit-animation-duration: 0.5s;
+
+    input{
+      color: $text-color;
+    }
 
     #emailInput{
       -webkit-animation-duration: 0.5s;
