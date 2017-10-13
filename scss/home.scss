@@ -40,8 +40,37 @@ body{
   .groupName {
     font-size: 12px;
   }
+  #eventsList{
+    p {
+      color: black;
+    }
+  }
 
-  p {
-    color: black !important;
+  footer{
+    margin-top: 100px;
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background: $babook-pink;
+
+    p{
+        color: white;
+        margin-top: 40px;
+    }
+  }
+
+  footer:after{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: inherit;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    transform-origin: top left;
+    transform: skewY(-3deg);
+    z-index: -1;
   }
 }
