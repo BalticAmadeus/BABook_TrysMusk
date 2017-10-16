@@ -40,7 +40,7 @@ class AttendanceController extends Controller
             $eventUser -> status = $status;
             $eventUser->save();
         } else {
-            $this->update();
+            $this->update($request);
         }
 
         return response()->json("Invited");

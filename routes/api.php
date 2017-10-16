@@ -34,7 +34,6 @@ Route::namespace('api')->group(function () {
 
     Route::get('userevent/{eventId}', 'AttendanceController@show');
     Route::post('userevent', 'AttendanceController@store');
-    Route::put('userevent', 'AttendanceController@update');
 
     Route::get('comments/{eventId}', 'CommentsController@show');
     Route::post('comments/{eventId}', 'CommentsController@store');
