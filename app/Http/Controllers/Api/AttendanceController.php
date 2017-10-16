@@ -29,11 +29,16 @@ class AttendanceController extends Controller
 
     public function store($eventId, $userId, $status)
     {
-        $eventUser = new EventsUsers();
-        $eventUser -> eventId = $eventId;
-        $eventUser -> userId = $userId;
-        $eventUser -> status = $status;
-        $eventUser->save();
+        $check = EventsUsers::where('eventId', $eventId)->where('userId', $userId)->count();
+        if(!$check) {
+            $eventUser = new EventsUsers();
+            $eventUser -> eventId = $eventId;
+            $eventUser -> userId = $userId;
+            $eventUser -> status = $status;
+            $eventUser->save();
+        } else {
+            $this->update($eventId, $userId, $status);
+        }
 
         return response()->json("Invited");
     }
