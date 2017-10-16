@@ -23,6 +23,9 @@ namespace BABookFront
         {
             loggerFactory.AddConsole();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
