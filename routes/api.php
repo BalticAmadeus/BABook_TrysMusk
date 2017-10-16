@@ -38,6 +38,8 @@ Route::namespace('api')->group(function () {
 
     Route::get('comments/{eventId}', 'CommentsController@show');
     Route::post('comments/{eventId}', 'CommentsController@store');
+
+    Route::get('groups', 'GroupsController@index');
 });
 
 
