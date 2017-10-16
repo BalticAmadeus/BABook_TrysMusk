@@ -34,7 +34,7 @@ $(".createNewEvent").on('click', function(){
     $('#newEventModal').modal('open');
     $("#groupSelect").html('<option value="" disabled selected>Group</option>');
     $.ajax({
-        url: "http://localhost:8000/api/groups",
+        url: "http://trycatch2017.azurewebsites.net/api/groups",
         type: 'GET',
         contentType: "application/json",
         success: function(res) {
@@ -61,15 +61,16 @@ $("#newCommentBtn").on('click', function () {
 function getEvents() {
     $("#eventsList").html("");
     $.ajax({
-        url: "http://localhost:8000/api/events",
+        url: "http://trycatch2017.azurewebsites.net/api/events",
         type: 'GET',
         contentType: "application/json",
         success: function(res) {
+            console.log(res);
             if(res.length === 0) {
                 $("#eventsList").html('<h1 style="color: white">No Events..</h1>');
             }
             $.each( res, function( i, d ) {
-                $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><p>' + d.groupName + '</p><span class="card-title">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">Kas? ' + d.comment + '</p><span class="blue-text text-darken-2 card-info">Kur? ' + d.location + '</span><div class="card__meta"><time>Kada? ' + d.date + '</time></div></div><div class="card-action center-align"><a class="attend btn-floating btn-large waves-effect waves-light green eventId' + d.eventId + '" onclick="attendance(' + d.eventId + ')"><i class="material-icons">check</i></a><a class="parti btn-floating btn-large waves-effect waves-light orange modal-trigger attendanceBtn" href="#attendanceModal" onclick="getParticipants(' + d.eventId + ')"><i class="material-icons">group</i></a><a class="btn-floating btn-large waves-effect waves-light red modal-trigger inviteBtn" href="#inviteModal"><i class="material-icons">send</i></a><a class="btn-floating btn-large waves-effect waves-light red modal-trigger commentBtn" href="#commentModal"' + d.eventId + ' onclick="getComments(' + d.eventId + ')"><i class="material-icons">comment</i></a></div></div></div>');
+                $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><p>' + d.groupName + '</p><span class="card-title">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">Kas? ' + d.comment + '</p><span class="blue-text text-darken-2 card-info">Kur? ' + d.location + '</span><div class="card__meta"><time>Kada? ' + d.date + '</time></div></div><div class="card-action center-align"><a class="attend btn-floating btn-large waves-effect waves-light purple eventId' + d.eventId + '" onclick="attendance(' + d.eventId + ')"><i class="material-icons">check</i></a><a class="parti btn-floating btn-large waves-effect waves-light cyan modal-trigger attendanceBtn" href="#attendanceModal" onclick="getParticipants(' + d.eventId + ')"><i class="material-icons">group</i></a><a class="btn-floating btn-large waves-effect waves-light red accent-3 modal-trigger inviteBtn" href="#inviteModal"><i class="material-icons">send</i></a><a class="btn-floating btn-large waves-effect waves-light cyan accent-3 modal-trigger commentBtn" href="#commentModal"' + d.eventId + ' onclick="getComments(' + d.eventId + ')"><i class="material-icons">comment</i></a></div></div></div>');
             });
         },
         error: function (jqXHR, exception) {
@@ -115,7 +116,7 @@ function addNewEvent() {
 
     if(validateNewEvent() === 0) {
         $.ajax({
-            url: "http://localhost:8000/api/events",
+            url: "http://trycatch2017.azurewebsites.net/api/events",
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify(data),
@@ -150,7 +151,7 @@ function attendance(eventId) {
     var userId = 1;
     var event = $(".eventId" + eventId);
 
-    if(event.hasClass('green')) {
+    if(event.hasClass('purple')) {
         var status = 1;
 
         var data = {
@@ -160,13 +161,13 @@ function attendance(eventId) {
         };
 
         $.ajax({
-            url: "http://localhost:8000/api/userevent",
+            url: "http://trycatch2017.azurewebsites.net/api/userevent",
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify(data),
             success: function () {
-                event.removeClass('green');
-                event.addClass('red');
+                event.removeClass('purple');
+                event.addClass('pink');
                 event.html('<i class="material-icons">cancel</i>');
             },
             error: function (jqXHR, exception) {
@@ -198,13 +199,13 @@ function attendance(eventId) {
         };
 
         $.ajax({
-            url: "http://localhost:8000/api/userevent",
-            type: 'PUT',
+            url: "http://trycatch2017.azurewebsites.net/api/userevent",
+            type: 'POST',
             contentType: "application/json",
             data: JSON.stringify(data),
             success: function () {
-                event.removeClass('red');
-                event.addClass('green');
+                event.removeClass('pink');
+                event.addClass('purple');
                 event.html('<i class="material-icons">check</i>');
             },
             error: function (jqXHR, exception) {
@@ -235,7 +236,7 @@ function getParticipants(eventId) {
     $("#notGoing").html("");
     $("#unanswered").html("");
     $.ajax({
-        url: "http://localhost:8000/api/userevent/" + eventId,
+        url: "http://trycatch2017.azurewebsites.net/api/userevent/" + eventId,
         type: 'GET',
         contentType: "application/json",
         success: function(res) {
@@ -275,7 +276,7 @@ function getParticipants(eventId) {
 function getComments(eventId) {
     $("#comments").html("");
     $.ajax({
-        url: "http://localhost:8000/api/comments/" + eventId,
+        url: "http://trycatch2017.azurewebsites.net/api/comments/" + eventId,
         type: 'GET',
         contentType: "application/json",
         success: function(res) {
@@ -317,7 +318,7 @@ function newComment() {
     };
 
     $.ajax({
-        url: "http://localhost:8000/api/comments/" + eventId,
+        url: "http://trycatch2017.azurewebsites.net/api/comments/" + eventId,
         type: 'POST',
         contentType: "application/json",
         data: JSON.stringify(data),

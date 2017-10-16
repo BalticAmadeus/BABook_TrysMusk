@@ -67,27 +67,7 @@ body .events .card .card-action {
     background-color: transparent
 }
 
-body .events .card .card-action .attend i {
-    background-color: #f80aaf
-}
-
-body .events .card .card-action .parti i {
-    background-color: #4cf
-}
-
-body .events .card .card-action .inviteBtn i {
-    background-color: #0af89d;
-}
-
-body .events .card .card-action .commentBtn i {
-    background-color: #8a02fa
-}
-
 body .events .card .card-action .btn-floating {
     margin-left: 4px;
     margin-right: 4px
-}
-
-.modal-content {
-
 }
