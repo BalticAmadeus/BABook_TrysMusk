@@ -40,7 +40,16 @@ class EventsController extends Controller
 
     public function store(Request $request)
     {
-        return Event::create($request->all());
+        $event = new Event();
+        $event->groupId = $request->groupId;
+        $event->userId = $request->userId;
+        $event->title = $request->title;
+        $event->date = $request->date;
+        $event->comment = $request->comment;
+        $event->location = $request->location;
+        $event->save();
+
+        return response()->json("Comment posted");
     }
 
     public function update(Request $request, $id)
