@@ -177,7 +177,6 @@ function getComments(eventId) {
         type: 'GET',
         contentType: "application/json",
         success: function(res) {
-            console.log(res);
             $("#commentModal").attr('data-id', eventId);
             $.each( res, function( i, d ) {
                 $("#comments").append('<p>' + d.name + ' : ' + d.comment + '</p>');
