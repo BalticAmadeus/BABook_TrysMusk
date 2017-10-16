@@ -13,7 +13,24 @@ class EventsController extends Controller
     {
         $userId = 1;
 
-        return Event::with('group', 'participants')->get(['id', 'groupId', 'title', 'date', 'comment', 'location']);
+        $events = Event::with('group')->get();
+        $data = [];
+        foreach($events as $event) {
+            $status = EventsUsers::select('status')->where('userId', $userId)->where('eventId', $event->id)->first();
+            $temp = [
+                "id" => $event->id,
+                "creatorName" => "",
+                "groupName" => $event->group->name,
+                "date" => $event->date,
+                "title" => $event->title,
+                "comment" => $event->comment,
+                "location" => $event->location,
+                "status" => $status['status']
+            ];
+            array_push($data, $temp);
+        }
+
+        return $data;
     }
 
     public function show($id)
