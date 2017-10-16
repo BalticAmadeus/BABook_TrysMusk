@@ -32,7 +32,7 @@ function materializeStuff(){
 
 $(".createNewEvent").on('click', function(){
     $('#newEventModal').modal('open');
-
+    $("#groupSelect").html('<option value="" disabled selected>Group</option>');
     $.ajax({
         url: "http://localhost:8000/api/groups",
         type: 'GET',
@@ -160,7 +160,7 @@ function attendance(eventId) {
         };
 
         $.ajax({
-            url: "http://localhost:8000/api/userevent/",
+            url: "http://localhost:8000/api/userevent",
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify(data),
@@ -198,7 +198,7 @@ function attendance(eventId) {
         };
 
         $.ajax({
-            url: "http://localhost:8000/api/userevent/",
+            url: "http://localhost:8000/api/userevent",
             type: 'PUT',
             contentType: "application/json",
             data: JSON.stringify(data),
