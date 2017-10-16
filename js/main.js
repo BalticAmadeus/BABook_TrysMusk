@@ -7,7 +7,6 @@ function materializeStuff(){
     $(".button-collapse").sideNav();
     $(".dropdown-button").dropdown({ hover: false });
     $('.modal').modal();
-    $('select').material_select();
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -32,6 +31,18 @@ function materializeStuff(){
 
 $(".createNewEvent").on('click', function(){
     $('#newEventModal').modal('open');
+
+    $.ajax({
+        url: "http://localhost:8000/api/groups",
+        type: 'GET',
+        contentType: "application/json",
+        success: function(res) {
+            $.each( res, function( i, d ) {
+                $("#groupSelect").append('<option value="' + d.id + '">' + d.name + '</option>');
+            });
+            $('select').material_select();
+        }
+    });
 });
 
 $(".attendanceBtn").on('click', function(){
@@ -47,6 +58,7 @@ $("#newCommentBtn").on('click', function () {
 });
 
 function getEvents() {
+    $("#eventsList").html("");
     $.ajax({
         url: "http://localhost:8000/api/events",
         type: 'GET',
@@ -60,7 +72,7 @@ function getEvents() {
 }
 
 function addNewEvent() {
-    var groupId = 1;
+    var groupId = $("#groupSelect").val();
     var userId = 1;
     var title = $("#title").val();
     var date = $("#date").val();
@@ -84,7 +96,7 @@ function addNewEvent() {
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function() {
-            window.location.reload(true)
+            getEvents();
         }
     });
 }
@@ -95,14 +107,15 @@ function attendance(eventId) {
 
     if(event.hasClass('green')) {
         var status = 1;
+
         var data = {
-            'userId' : 1,
+            'userId' : userId,
             'eventId' : eventId,
             'status' : status
         };
 
         $.ajax({
-            url: "http://localhost:8000/api/userevent/" + eventId + "/" + userId + "/" + status,
+            url: "http://localhost:8000/api/userevent/",
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify(data),
@@ -121,7 +134,7 @@ function attendance(eventId) {
         };
 
         $.ajax({
-            url: "http://localhost:8000/api/userevent/" + eventId + "/" + userId + "/" + status,
+            url: "http://localhost:8000/api/userevent/",
             type: 'PUT',
             contentType: "application/json",
             data: JSON.stringify(data),

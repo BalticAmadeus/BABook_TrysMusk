@@ -44,11 +44,8 @@
     <div class="modal-content">
         <h3>New event</h3>
         <div class="input-field col s12">
-            <select>
+            <select id="groupSelect">
                 <option value="" disabled selected>Group</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
             </select>
         </div>
         <div class="input-field col s12">
@@ -73,8 +70,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a href="" class="btn" id="addNewEventBtn" onclick="addNewEvent()">Submit</a>
-        <a href="" class="btn" id="cancelNewEventBtn">Cancel</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn" id="addNewEventBtn" onclick="addNewEvent()">Submit</a>
+        <a href="#!" class="btn modal-action modal-close waves-effect waves-green" id="cancelNewEventBtn">Cancel</a>
     </div>
 </div>
 
