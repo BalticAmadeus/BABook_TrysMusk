@@ -27,6 +27,7 @@ function materializeStuff(){
         ampmclickable: true, // make AM PM clickable
         aftershow: function(){} //Function for after opening timepicker
     });
+    $('select').material_select();
 }
 
 $(".createNewEvent").on('click', function(){
@@ -64,9 +65,31 @@ function getEvents() {
         type: 'GET',
         contentType: "application/json",
         success: function(res) {
+            if(res.length === 0) {
+                $("#eventsList").html('<h1 style="color: white">No Events..</h1>');
+            }
             $.each( res, function( i, d ) {
                 $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><p>' + d.groupName + '</p><span class="card-title">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">Kas? ' + d.comment + '</p><span class="blue-text text-darken-2 card-info">Kur? ' + d.location + '</span><div class="card__meta"><time>Kada? ' + d.date + '</time></div></div><div class="card-action center-align"><a class="attend btn-floating btn-large waves-effect waves-light green eventId' + d.id + '" onclick="attendance(' + d.id + ')"><i class="material-icons">check</i></a><a class="parti btn-floating btn-large waves-effect waves-light orange modal-trigger attendanceBtn" href="#attendanceModal" onclick="getParticipants(' + d.id + ')"><i class="material-icons">group</i></a><a class="btn-floating btn-large waves-effect waves-light red modal-trigger inviteBtn" href="#inviteModal"><i class="material-icons">send</i></a><a class="btn-floating btn-large waves-effect waves-light red modal-trigger commentBtn" href="#commentModal"' + d.id + ' onclick="getComments(' + d.id + ')"><i class="material-icons">comment</i></a></div></div></div>');
             });
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            console.log(msg);
         }
     });
 }
@@ -90,15 +113,37 @@ function addNewEvent() {
         'location' : location
     };
 
-    $.ajax({
-        url: "http://localhost:8000/api/events",
-        type: 'POST',
-        contentType: "application/json",
-        data: JSON.stringify(data),
-        success: function() {
-            getEvents();
-        }
-    });
+    if(validateNewEvent() === 0) {
+        $.ajax({
+            url: "http://localhost:8000/api/events",
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function() {
+                getEvents();
+            },
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                console.log(msg);
+            }
+        });
+    }
+
 }
 
 function attendance(eventId) {
@@ -123,6 +168,25 @@ function attendance(eventId) {
                 event.removeClass('green');
                 event.addClass('red');
                 event.html('<i class="material-icons">cancel</i>');
+            },
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                console.log(msg);
             }
         });
     } else {
@@ -142,6 +206,25 @@ function attendance(eventId) {
                 event.removeClass('red');
                 event.addClass('green');
                 event.html('<i class="material-icons">check</i>');
+            },
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                console.log(msg);
             }
         });
     }
@@ -166,6 +249,25 @@ function getParticipants(eventId) {
                     $("#unanswered").append('<p>' + d.name + '</p>');
                 }
             });
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            console.log(msg);
         }
     });
 }
@@ -181,6 +283,25 @@ function getComments(eventId) {
             $.each( res, function( i, d ) {
                 $("#comments").append('<p>' + d.name + ' : ' + d.comment + '</p>');
             });
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            console.log(msg);
         }
     });
 }
@@ -203,8 +324,59 @@ function newComment() {
         success: function() {
             getComments(eventId);
             $("#commentText").val("");
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            console.log(msg);
         }
     });
+}
+
+function validateNewEvent() {
+    $("#errorBox").html("");
+    var errors = 0;
+    var groupId = $("#groupSelect").val();
+    var title = $("#title").val();
+    var date = $("#date").val();
+    var time = $("#time").val();
+    var location = $("#location").val();
+
+    if(groupId === null) {
+        $("#errorBox").append('<div class="row"><div class="col s6 offset-s3"><div class="card-panel red"><span class="white-text">Please select group!</span></div></div></div>');
+        errors += 1;
+    }
+    if(title === "") {
+        $("#errorBox").append('<div class="row"><div class="col s6 offset-s3"><div class="card-panel red"><span class="white-text">Please enter title!</span></div></div></div>');
+        errors += 1;
+    }
+    if(date === "") {
+        $("#errorBox").append('<div class="row"><div class="col s6 offset-s3"><div class="card-panel red"><span class="white-text">Please select date!</span></div></div></div>');
+        errors += 1;
+    }
+    if(time === "") {
+        $("#errorBox").append('<div class="row"><div class="col s6 offset-s3"><div class="card-panel red"><span class="white-text">Please select time!</span></div></div></div>');
+        errors += 1;
+    }
+    if(location === "") {
+        $("#errorBox").append('<div class="row"><div class="col s6 offset-s3"><div class="card-panel red"><span class="white-text">Please enter the location for the event!</span></div></div></div>');
+        errors += 1;
+    }
+    return errors;
 }
 
 
