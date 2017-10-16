@@ -33,8 +33,8 @@ Route::namespace('api')->group(function () {
 
 
     Route::get('userevent/{eventId}', 'AttendanceController@show');
-    Route::post('userevent/{eventId}/{userId}/{status}', 'AttendanceController@store');
-    Route::put('userevent/{eventId}/{userId}/{status}', 'AttendanceController@update');
+    Route::post('userevent', 'AttendanceController@store');
+    Route::put('userevent', 'AttendanceController@update');
 
     Route::get('comments/{eventId}', 'CommentsController@show');
     Route::post('comments/{eventId}', 'CommentsController@store');
