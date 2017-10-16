@@ -17,7 +17,6 @@ class AttendanceController extends Controller
         $data = [];
         foreach ($eventUsers as $eventUser) {
             $temp = [
-                "userId" => $eventUser->userId,
                 "name" => $eventUser->users[0]->name,
                 "status" => $eventUser->status
             ];

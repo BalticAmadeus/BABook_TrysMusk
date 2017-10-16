@@ -6,6 +6,7 @@ use App\Event;
 use App\EventsUsers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
 
 class EventsController extends Controller
 {
@@ -17,9 +18,10 @@ class EventsController extends Controller
         $data = [];
         foreach($events as $event) {
             $status = EventsUsers::select('status')->where('userId', $userId)->where('eventId', $event->id)->first();
+            $creatorName = User::find($event->userId)->name;
             $temp = [
                 "id" => $event->id,
-                "creatorName" => "",
+                "creatorName" => $creatorName,
                 "groupName" => $event->group->name,
                 "date" => $event->date,
                 "title" => $event->title,
