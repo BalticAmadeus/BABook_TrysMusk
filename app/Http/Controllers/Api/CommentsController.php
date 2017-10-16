@@ -25,8 +25,6 @@ class CommentsController extends Controller
         $data = [];
         foreach ($comments as $comment) {
             $temp = [
-                "eventId" => $comment->eventId,
-                "userId" => $comment->user->id,
                 "name" => $comment->user->name,
                 "comment" => $comment->comment
             ];

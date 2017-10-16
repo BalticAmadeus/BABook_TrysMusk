@@ -15,4 +15,7 @@ class EventsUsers extends Model
         return $this->hasMany('App\User', 'id', 'userId')->select(array('id', 'name'));
     }
 
+    /*public function userStatus() {
+        return $this->hasMany('App\User', 'id', 'userId')->select(array('id'));
+    }*/
 }
