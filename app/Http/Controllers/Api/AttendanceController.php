@@ -59,11 +59,4 @@ class AttendanceController extends Controller
 
         return response('success');
     }
-
-//    public function delete(Request $request, $userId)
-//    {
-//        $event = EventsUsers::findOrFail($userId);
-//        $event->delete();
-//        return 204;
-//    }
 }
