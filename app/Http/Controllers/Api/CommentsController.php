@@ -13,7 +13,8 @@ class CommentsController extends Controller
         $comment = new Comment();
         $comment->userId = $request->userId;
         $comment->eventId = $eventId;
-        $comment->comment = $request->comment;
+        $tempComment = htmlspecialchars($request->comment);
+        $comment->comment = $tempComment;
         $comment->save();
 
         return response()->json("Comment posted");
