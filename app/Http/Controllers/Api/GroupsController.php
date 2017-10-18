@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 
 class GroupsController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $data = [];
         $groups = Group::select('id', 'name')->get();
         foreach ($groups as $group) {
             $temp = [
-                "id" => $group->id,
+                "groupId" => $group->id,
                 "name" => $group->name
             ];
             array_push($data, $temp);

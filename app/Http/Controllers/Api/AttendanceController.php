@@ -13,8 +13,9 @@ class AttendanceController extends Controller
 {
     public function show($eventId)
     {
-        $eventUsers = EventsUsers::where('eventId', '=', $eventId)->with('users')->get(['eventId', 'status', 'userId']);
         $data = [];
+        $eventUsers = EventsUsers::where('eventId', $eventId)->with('users')->get(['eventId', 'status', 'userId']);
+
         foreach ($eventUsers as $eventUser) {
             $temp = [
                 "name" => $eventUser->users[0]->name,
@@ -23,7 +24,7 @@ class AttendanceController extends Controller
             array_push($data, $temp);
         }
 
-        return $data;
+        return response()->json($data);
     }
 
     public function store(Request $request)
@@ -37,6 +38,7 @@ class AttendanceController extends Controller
         $status = $request->status;
 
         $check = EventsUsers::where('eventId', $eventId)->where('userId', $userId)->count();
+
         if(!$check) {
             $eventUser = new EventsUsers();
             $eventUser -> eventId = $eventId;
@@ -44,7 +46,7 @@ class AttendanceController extends Controller
             $eventUser -> status = $status;
             $eventUser->save();
         } else {
-            $this->update();
+            $this->update($request);
         }
 
         return response()->json("Invited");
@@ -68,10 +70,31 @@ class AttendanceController extends Controller
         return response()->json("success");
     }
 
-//    public function delete(Request $request, $userId)
-//    {
-//        $event = EventsUsers::findOrFail($userId);
-//        $event->delete();
-//        return 204;
-//    }
+    public function invitable($eventId)
+    {
+        $data = [];
+        $users = User::get();
+
+        foreach ($users as $user) {
+            $eventUsers = EventsUsers::where('eventId', $eventId)->where('userId', $user->id)->get();
+            if(count($eventUsers) == 0) {
+                $temp = [
+                    "userId" => $user->id,
+                    "name" => $user->name
+                ];
+                array_push($data, $temp);
+            } else {
+                foreach ($eventUsers as $eventUser) {
+                    if($eventUser->userId != $user->id) {
+                        $temp = [
+                            "userId" => $user->id,
+                            "name" => $user->name
+                        ];
+                        array_push($data, $temp);
+                    }
+                }
+            }
+        }
+        return response()->json($data);
+    }
 }
