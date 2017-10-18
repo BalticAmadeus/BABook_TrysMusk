@@ -13,8 +13,9 @@ class AttendanceController extends Controller
 {
     public function show($eventId)
     {
-        $eventUsers = EventsUsers::where('eventId', '=', $eventId)->with('users')->get(['eventId', 'status', 'userId']);
         $data = [];
+        $eventUsers = EventsUsers::where('eventId', $eventId)->with('users')->get(['eventId', 'status', 'userId']);
+
         foreach ($eventUsers as $eventUser) {
             $temp = [
                 "name" => $eventUser->users[0]->name,
@@ -23,7 +24,7 @@ class AttendanceController extends Controller
             array_push($data, $temp);
         }
 
-        return $data;
+        return response()->json($data);
     }
 
     public function store(Request $request)
@@ -33,6 +34,7 @@ class AttendanceController extends Controller
         $status = $request->status;
 
         $check = EventsUsers::where('eventId', $eventId)->where('userId', $userId)->count();
+
         if(!$check) {
             $eventUser = new EventsUsers();
             $eventUser -> eventId = $eventId;
@@ -58,5 +60,33 @@ class AttendanceController extends Controller
             ->update(['status' => $status]);
 
         return response('success');
+    }
+
+    public function invitable($eventId)
+    {
+        $data = [];
+        $users = User::get();
+        $eventUsers = EventsUsers::where('eventId', $eventId)->get();
+
+        foreach ($users as $user) {
+            if(count($eventUsers) == 0) {
+                $temp = [
+                    "userId" => $user->id,
+                    "name" => $user->name
+                ];
+                array_push($data, $temp);
+            } else {
+                foreach ($eventUsers as $eventUser) {
+                    if($eventUser->userId != $user->id) {
+                        $temp = [
+                            "userId" => $user->id,
+                            "name" => $user->name
+                        ];
+                        array_push($data, $temp);
+                    }
+                }
+            }
+        }
+        return response()->json($data);
     }
 }

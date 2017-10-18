@@ -12,17 +12,23 @@ class EventsController extends Controller
 {
     public function index()
     {
+        $data = [];
         $userId = 1;
 
-        $events = Event::with('group')->get();
-        $data = [];
+        $events = Event::select('id', 'groupId', 'userId', 'date', 'title', 'location', 'comment')
+            ->with(array('group' => function($query){
+            $query->select('id', 'name');
+            }))->get();
+
         foreach($events as $event) {
             $status = EventsUsers::select('status')->where('userId', $userId)->where('eventId', $event->id)->first();
+
             $creatorName = User::find($event->userId)->name;
+
             $temp = [
                 "eventId" => $event->id,
                 "creatorName" => $creatorName,
-                "groupName" => $event->group->name,
+                "groupName" => $event->group["name"],
                 "date" => $event->date,
                 "title" => $event->title,
                 "comment" => $event->comment,
@@ -32,12 +38,12 @@ class EventsController extends Controller
             array_push($data, $temp);
         }
 
-        return $data;
+        return response()->json($data); // response builderis
     }
 
-    public function show($id)
+    public function show($eventId)
     {
-        return Event::find($id)->get(['id', 'groupId', 'userId', 'title', 'date', 'comment', 'location']);
+        return Event::find($eventId)->get(['id', 'groupId', 'userId', 'title', 'date', 'comment', 'location']);
     }
 
     public function store(Request $request)
@@ -51,20 +57,20 @@ class EventsController extends Controller
         $event->location = $request->location;
         $event->save();
 
-        return response()->json("Comment posted");
+        return response()->json("Event successfully created!");
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $eventId)
     {
-        $event = Event::findOrFail($id);
+        $event = Event::findOrFail($eventId);
         $event->update($request->all());
-        return $event;
+        return response()->json("Event successfully updated!");
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request, $eventId)
     {
-        $event = Event::findOrFail($id);
+        $event = Event::findOrFail($eventId);
         $event->delete();
-        return 204;
+        return response()->json("Event deleted!");
     }
 }
