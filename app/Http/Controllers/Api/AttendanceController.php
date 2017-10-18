@@ -28,6 +28,10 @@ class AttendanceController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'status' => 'required|numeric|min:1|max:3',
+        ]);
+
         $eventId = $request->eventId;
         $userId = $request->userId;
         $status = $request->status;
@@ -48,6 +52,10 @@ class AttendanceController extends Controller
 
     public function update(Request $request)
     {
+        /*$this->validate($request, [
+            'status' => 'required|integer|between:1,3',
+        ]);*/
+
         $eventId = $request->eventId;
         $userId = $request->userId;
         $status = $request->status;
@@ -57,7 +65,7 @@ class AttendanceController extends Controller
             ->where('userId', $userId)
             ->update(['status' => $status]);
 
-        return response('success');
+        return response()->json("success");
     }
 
 //    public function delete(Request $request, $userId)

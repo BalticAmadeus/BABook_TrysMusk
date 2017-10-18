@@ -5,11 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CommentsController extends Controller
 {
     public function store(Request $request, $eventId)
     {
+        $this->validate($request, [
+            'comment' => 'required|max:191',
+            ]);
+
         $comment = new Comment();
         $comment->userId = $request->userId;
         $comment->eventId = $eventId;

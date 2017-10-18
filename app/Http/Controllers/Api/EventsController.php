@@ -42,6 +42,12 @@ class EventsController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required|max:50|',
+            'location' => 'required|max:100',
+            'date' => 'required|date_format:Y-m-d H:i',
+        ]);
+
         $event = new Event();
         $event->groupId = $request->groupId;
         $event->userId = $request->userId;
@@ -51,7 +57,7 @@ class EventsController extends Controller
         $event->location = $request->location;
         $event->save();
 
-        return response()->json("Comment posted");
+        return response()->json("Event posted");
     }
 
     public function update(Request $request, $id)
