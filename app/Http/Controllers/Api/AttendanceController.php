@@ -66,9 +66,9 @@ class AttendanceController extends Controller
     {
         $data = [];
         $users = User::get();
-        $eventUsers = EventsUsers::where('eventId', $eventId)->get();
 
         foreach ($users as $user) {
+            $eventUsers = EventsUsers::where('eventId', $eventId)->where('userId', $user->id)->get();
             if(count($eventUsers) == 0) {
                 $temp = [
                     "userId" => $user->id,
