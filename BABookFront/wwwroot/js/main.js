@@ -32,6 +32,11 @@ function materializeStuff(){
 
 $(".createNewEvent").on('click', function(){
     $('#newEventModal').modal('open');
+    $("#title").html("");
+    $("#date").html("");
+    $("#time").html("");
+    $("#comment").html("");
+    $("#location").html("");
     $("#groupSelect").html('<option value="" disabled selected>Group</option>');
     $.ajax({
         url: "http://trycatch2017.azurewebsites.net/api/groups",
@@ -278,7 +283,7 @@ function getEvents() {
                 $("#eventsList").html('<h1 style="color: white">No Events..</h1>');
             }
             $.each( res, function( i, d ) {
-                $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><p>' + d.groupName + '</p><span class="card-title">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">Kas? ' + d.comment + '</p><span class="blue-text text-darken-2 card-info">Kur? ' + d.location + '</span><div class="card__meta"><time>Kada? ' + d.date + '</time></div></div><div class="card-action center-align"><a class="attend btn-floating btn-large waves-effect waves-light purple eventId' + d.eventId + '" onclick="attendance(' + d.eventId + ')"><i class="material-icons">check</i></a><a class="parti btn-floating btn-large waves-effect waves-light cyan modal-trigger attendanceBtn" href="#attendanceModal" onclick="getParticipants(' + d.eventId + ')"><i class="material-icons">group</i></a><a class="btn-floating btn-large waves-effect waves-light red accent-3 modal-trigger inviteBtn" href="#inviteModal"><i class="material-icons">send</i></a><a class="btn-floating btn-large waves-effect waves-light cyan accent-3 modal-trigger commentBtn" href="#commentModal"' + d.eventId + ' onclick="getComments(' + d.eventId + ')"><i class="material-icons">comment</i></a></div></div></div>');
+                $("#eventsList").append('<div class="col s12 m6 l4"><div class="card"><div class="card-content white-text"><p>' + d.groupName + '</p><span class="card-title">' + d.title + '</span><p class="card-subtitle grey-text text-darken-2">Kas? ' + d.comment + '</p><span class="blue-text text-darken-2 card-info">Kur? ' + d.location + '</span><div class="card__meta"><time>Kada? ' + d.date + '</time></div></div><div class="card-action center-align"><a class="attend btn-floating btn-large waves-effect waves-light purple eventId' + d.eventId + '" onclick="attendance(' + d.eventId + ')"><i class="material-icons">check</i></a><a class="parti btn-floating btn-large waves-effect waves-light cyan modal-trigger attendanceBtn" href="#attendanceModal" onclick="getParticipants(' + d.eventId + ')"><i class="material-icons">group</i></a><a class="btn-floating btn-large waves-effect waves-light red accent-3 modal-trigger inviteBtn" href="#inviteModal" onclick="getInvitableUsers(' + d.eventId + ')"><i class="material-icons">send</i></a><a class="btn-floating btn-large waves-effect waves-light cyan accent-3 modal-trigger commentBtn" href="#commentModal"' + d.eventId + ' onclick="getComments(' + d.eventId + ')"><i class="material-icons">comment</i></a></div></div></div>');
             });
         },
         error: function (jqXHR, exception) {
@@ -358,6 +363,76 @@ function getComments(eventId) {
                 d.comment = d.comment.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 $("#comments").append('<p>' + d.name + ' : ' + d.comment + '</p>');
             });
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg += 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg += 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg += 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg += 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg += 'Time out error.';
+            } else if (exception === 'abort') {
+                msg += 'Ajax request aborted.';
+            } else {
+                msg += 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            console.log(msg);
+        }
+    });
+}
+
+function getInvitableUsers(eventId) {
+    $("#invitableUsers").html("");
+    $.ajax({
+        url: "http://localhost:8000/api/userevent/invitable/" + eventId,
+        type: 'GET',
+        contentType: "application/json",
+        success: function(res) {
+            $.each( res, function( i, d ) {
+                $("#invitableUsers").append('<li class="collection-item"><div>' + d.name + '<a href="#!" class="secondary-content" onclick="inviteUser(' + eventId + ',' + d.userId + ')"><i class="material-icons">send</i></a></div></li>');
+            });
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg += 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg += 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg += 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg += 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg += 'Time out error.';
+            } else if (exception === 'abort') {
+                msg += 'Ajax request aborted.';
+            } else {
+                msg += 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            console.log(msg);
+        }
+    });
+}
+
+function inviteUser(eventId, userId) {
+    var data = {
+        'userId' : userId,
+        'eventId' : eventId,
+        'status' : 3
+    };
+
+    $.ajax({
+        url: "http://localhost:8000/api/userevent",
+        type: 'POST',
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function () {
+            console.log("User Invited!");
         },
         error: function (jqXHR, exception) {
             var msg = '';
