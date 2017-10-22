@@ -7,38 +7,43 @@ use App\EventsUsers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use JWTAuth;
 
 class EventsController extends Controller
 {
     public function index()
     {
         $data = [];
-        $userId = 1;
+        $userId = JWTAuth::user()->id;
 
-        $events = Event::select('id', 'groupId', 'userId', 'date', 'title', 'location', 'comment')
-            ->with(array('group' => function($query){
-            $query->select('id', 'name');
-            }))->get();
+        if($userId) {
+            $events = Event::select('id', 'groupId', 'userId', 'date', 'title', 'location', 'comment')
+                ->with(array('group' => function($query){
+                    $query->select('id', 'name');
+                }))->get();
 
-        foreach($events as $event) {
-            $status = EventsUsers::select('status')->where('userId', $userId)->where('eventId', $event->id)->first();
+            foreach($events as $event) {
+                $status = EventsUsers::select('status')->where('userId', $userId)->where('eventId', $event->id)->first();
 
-            $creatorName = User::find($event->userId)->name;
+                $creatorName = User::find($event->userId)->name;
 
-            $temp = [
-                "eventId" => $event->id,
-                "creatorName" => $creatorName,
-                "groupName" => $event->group["name"],
-                "date" => $event->date,
-                "title" => $event->title,
-                "comment" => $event->comment,
-                "location" => $event->location,
-                "status" => $status['status']
-            ];
-            array_push($data, $temp);
+                $temp = [
+                    "eventId" => $event->id,
+                    "creatorName" => $creatorName,
+                    "groupName" => $event->group["name"],
+                    "date" => $event->date,
+                    "title" => $event->title,
+                    "comment" => $event->comment,
+                    "location" => $event->location,
+                    "status" => $status['status']
+                ];
+                array_push($data, $temp);
+            }
+
+            return response()->json($data);
+        } else {
+            return response()->json("user not found!");
         }
-
-        return response()->json($data); // response builderis
     }
 
     public function show($eventId)

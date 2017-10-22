@@ -37,6 +37,6 @@ class CommentsController extends Controller
             array_push($data, $temp);
         }
 
-        return $data;
+        return response()->json($data);
     }
 }
