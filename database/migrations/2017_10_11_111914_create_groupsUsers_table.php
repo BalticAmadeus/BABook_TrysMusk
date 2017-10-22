@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupUsersTable extends Migration
+class CreateGroupsUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGroupUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('groupUsers', function (Blueprint $table) {
+        Schema::create('groupsUsers', function (Blueprint $table) {
             $table->integer('groupId')->unsigned();
             $table->foreign('groupId')->references('id')->on('groups');
             $table->integer('userId')->unsigned();
@@ -29,6 +29,6 @@ class CreateGroupUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groupUsers');
+        Schema::dropIfExists('groupsUsers');
     }
 }
