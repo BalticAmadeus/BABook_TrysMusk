@@ -151,10 +151,15 @@ import router from '../../router/index.js'
       },
       getGroups: function() {
         this.$http.get('groups', { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then(function(response) {
-          this.items = [{
-            text: response.data[0].name,
-            value: response.data[0].groupId
-          }]
+          var data = []
+          response.data.forEach(function(element) {
+            var temp = {
+              text: element.name,
+              value: element.groupId
+            }
+          data.push(temp)
+        })
+        this.items = data
         })
       },
       clear () {

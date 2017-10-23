@@ -1,5 +1,6 @@
 <template lang="html">
 <v-container fluid grid-list-lg style="margin-top: 0">
+    <v-btn @click.stop="drawer2 = !drawer2" dark color="pink">Groups / Rooms</v-btn>
         <v-layout row wrap>
           <v-flex xs12 sm6 md4 v-for="event in events" :key="event.eventId">
             <v-card class="primary white--text">
@@ -131,11 +132,50 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-navigation-drawer
+      temporary
+      right
+      v-model="drawer2"
+      light
+      absolute
+    >
+      <v-list class="pa-1">
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title>Groups</v-list-tile-title>
+          </v-list-tile-content>
+          </v-list-tile-action>
+        </v-list-tile>
+      </v-list>
+      <v-list class="pt-0" dense>
+        <v-divider></v-divider>
+        <v-list-tile v-for="group in groups" :key="group.text" v-on:click="getEvents(group.value)">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ group.text }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+      <v-divider></v-divider>
+      <v-list class="pa-1">
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title>Rooms</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider></v-divider>
+        <v-list-tile router
+        :to="{ name: 'Room' }">
+          <v-list-tile-content>
+            <v-list-tile-title>Pietūs</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
 </v-container>
 </template>
 
 <script>
-import auth from '../../js/auth.js';
+import auth from '../../js/auth.js'
 import router from '../../router/index.js'
 
 export default {
@@ -156,7 +196,9 @@ export default {
       invitableUsersDialog: false,
       invitables: [],
       tempInviteEventId: null,
-      auth: auth
+      auth: auth,
+      drawer2: false,
+      groups: []
     }
   },
   methods: {
@@ -176,8 +218,8 @@ export default {
         this.newComment = ''
       })
     },
-    getEvents: function() {
-      this.$http.get('events',{ headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then(function(response) {
+    getEvents: function(groupId) {
+      this.$http.get('events/' + groupId, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then(function(response) {
         this.events = response.data
       })
     },
@@ -206,8 +248,20 @@ export default {
         this.unanswered = unanswered
       })
     },
+    getGroups: function() {
+      this.$http.get('groups', { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then(function(response) {
+        var data = []
+        response.data.forEach(function(element) {
+          var temp = {
+            text: element.name,
+            value: element.groupId
+          }
+        data.push(temp)
+      })
+      this.groups = data
+      })
+    },
     attend: function(eventId) {
-      console.log(this.auth.user.id)
       var data = {
         userId: this.auth.user.id,
         status: 1,
@@ -255,6 +309,7 @@ export default {
   created: function() {
     this.check()
     this.getEvents()
+    this.getGroups()
   }
 }
 </script>
