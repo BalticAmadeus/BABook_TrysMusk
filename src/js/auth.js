@@ -2,18 +2,19 @@ import Vue from 'vue';
 import router from '../router/index.js'
 
 export default {
-      user: {
-          authenticated: false,
-          id: null,
-          name: null
-      },
+    user: {
+        authenticated: false,
+        id: null,
+        name: null
+    },
     check: function () {
         let token = localStorage.getItem('id_token')
         if (token !== null) {
             Vue.http.get(
                 'user',
-                { headers:
-                  { 'Authorization': 'Bearer ' + token }
+                {
+                    headers:
+                    { 'Authorization': 'Bearer ' + token }
                 }
             ).then(response => {
                 this.user.authenticated = true
@@ -25,17 +26,17 @@ export default {
         }
     },
     register(context, name, email, password) {
-      var data = {
-        name: name,
-        email: email,
-        password: password
-      }
-      Vue.http.post('register', data).then (response =>
-        context.error = false
-      ), response => {
-        context.response = response.data
-        context.error = true
-      }
+        var data = {
+            name: name,
+            email: email,
+            password: password
+        }
+        Vue.http.post('register', data).then(response =>
+            context.error = false
+        ), response => {
+            context.response = response.data
+            context.error = true
+        }
     },
     login: function (context, email, password) {
         Vue.http.post(
@@ -46,17 +47,17 @@ export default {
             }
         ).then(response => {
             context.error = false
-            if(response.data.result) {
-              localStorage.setItem('id_token', response.data.result.token)
-              Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token')
+            if (response.data.result) {
+                localStorage.setItem('id_token', response.data.result.token)
+                Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token')
 
-              this.user.authenticated = true
-              this.user.profile = response.data.result
-              router.go('/')
+                this.user.authenticated = true
+                this.user.profile = response.data.result
+                router.go('/')
             } else {
-              context.error = true
+                context.error = true
             }
-        }, function(response) {
+        }, function (response) {
             context.error = true
         })
     },

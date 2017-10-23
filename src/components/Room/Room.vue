@@ -23,10 +23,7 @@
      </v-flex>
    </v-layout>
            </v-list>
-
        </v-flex>
-
-
                  <v-btn
                    @click="submit"
                    :disabled="!valid"
@@ -41,27 +38,27 @@
    </template>
 
    <script>
-   import auth from '../../js/auth.js';
-   import router from '../../router/index.js'
+import auth from "../../js/auth.js";
+import router from "../../router/index.js";
 
-     export default {
-       data: () => ({
-         items: [],
-         auth: auth
-       }),
-       methods: {
-         check: function() {
-           let token = localStorage.getItem('id_token')
-           if(!token) {
-             router.push('/login')
-           }
-         }
-     }
-   }
-   </script>
+export default {
+  data: () => ({
+    items: [],
+    auth: auth
+  }),
+  methods: {
+    check: function() {
+      let token = localStorage.getItem("id_token");
+      if (!token) {
+        router.push("/login");
+      }
+    }
+  }
+};
+</script>
 
    <style lang="css">
-   textarea {
-       resize: none;
-   }
-   </style>
+textarea {
+  resize: none;
+}
+</style>

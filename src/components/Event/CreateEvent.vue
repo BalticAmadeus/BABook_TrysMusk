@@ -98,81 +98,88 @@
 </template>
 
 <script>
-import auth from '../../js/auth.js';
-import router from '../../router/index.js'
-  export default {
-    data: () => ({
-      valid: true,
-      select: null,
-      items: [],
-      title: '',
-      titleRules: [
-        (v) => !!v || 'Title is required',
-        (v) => v && v.length <= 10 || 'Title must be less than 10 characters'
-      ],
-      location: '',
-      locationRules: [
-        (v) => !!v || 'Location is required',
-      ],
-      date: null,
-      dateRules: [
-        (v) => !!v || 'Date is required',
-      ],
-      menu: false,
-      time: null,
-      timeRules: [
-        (v) => !!v || 'Time is required',
-      ],
-      menu2: false,
-      comment: '',
-      auth: auth
-    }),
-    methods: {
-      check: function() {
-        auth.check()
-        let token = localStorage.getItem('id_token')
-        if(!token) {
-          router.push('/login')
-        }
-      },
-      submit: function() {
-        if (this.$refs.form.validate()) {
+import auth from "../../js/auth.js";
+import router from "../../router/index.js";
+export default {
+  data: () => ({
+    valid: true,
+    select: null,
+    items: [],
+    title: "",
+    titleRules: [
+      v => !!v || "Title is required",
+      v => (v && v.length <= 10) || "Title must be less than 10 characters"
+    ],
+    location: "",
+    locationRules: [v => !!v || "Location is required"],
+    date: null,
+    dateRules: [v => !!v || "Date is required"],
+    menu: false,
+    time: null,
+    timeRules: [v => !!v || "Time is required"],
+    menu2: false,
+    comment: "",
+    auth: auth
+  }),
+  methods: {
+    check: function() {
+      auth.check();
+      let token = localStorage.getItem("id_token");
+      if (!token) {
+        router.push("/login");
+      }
+    },
+    submit: function() {
+      if (this.$refs.form.validate()) {
         var data = {
           userId: auth.user.id,
           groupId: this.select,
           title: this.title,
           location: this.location,
-          date: this.date + ' ' + this.time,
+          date: this.date + " " + this.time,
           comment: this.comment
-        }
-        this.$http.post('events', data, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then((response) => {
-          this.$router.push('/')
-        })
+        };
+        this.$http
+          .post("events", data, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("id_token")
+            }
+          })
+          .then(response => {
+            this.$router.push("/");
+          });
       }
-      },
-      getGroups: function() {
-        this.$http.get('groups', { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then(function(response) {
-          var data = []
+    },
+    getGroups: function() {
+      this.$http
+        .get("groups", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("id_token")
+          }
+        })
+        .then(function(response) {
+          var data = [];
           response.data.forEach(function(element) {
             var temp = {
               text: element.name,
               value: element.groupId
-            }
-          data.push(temp)
-        })
-        this.items = data
-        })
-      },
-      clear () {
-        this.$refs.form.reset()
-      }
+            };
+            data.push(temp);
+          });
+          this.items = data;
+        });
     },
-    created: function() {
-      this.check()
-      this.getGroups()
+    clear() {
+      this.$refs.form.reset();
     }
+  },
+  created: function() {
+    this.check();
+    this.getGroups();
   }
+};
 </script>
 
 <style lang="css">
+
 </style>

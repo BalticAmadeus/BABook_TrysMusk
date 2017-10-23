@@ -63,27 +63,26 @@
 </template>
 
 <script>
-import auth from './js/auth.js'
+import auth from "./js/auth.js";
 
-  export default {
-    data() {
-            return {
-                auth: auth,
-                drawer: false
-            }
-        },
-        methods: {
-            logout: function () {
-              auth.logout()
-            }
-        },
-        mounted: function () {
-            this.$nextTick(function () {
-                auth.check()
-            })
-        }
+export default {
+  data() {
+    return {
+      auth: auth,
+      drawer: false
+    };
+  },
+  methods: {
+    logout: function() {
+      auth.logout();
+    }
+  },
+  mounted: function() {
+    this.$nextTick(function() {
+      auth.check();
+    });
   }
-
+};
 </script>
 
 

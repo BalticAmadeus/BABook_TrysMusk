@@ -175,23 +175,23 @@
 </template>
 
 <script>
-import auth from '../../js/auth.js'
-import router from '../../router/index.js'
+import auth from "../../js/auth.js";
+import router from "../../router/index.js";
 
 export default {
-  data () {
+  data() {
     return {
       events: [],
       commentDialog: false,
       comments: [],
       tempEventId: null,
-      newComment: '',
+      newComment: "",
       participantsDialog: false,
       going: [],
       notGoing: [],
       unanswered: [],
-      tabs: ['tab-1', 'tab-2', 'tab-3'],
-      tabNames: ['Going', 'Not Going', 'Unanswered'],
+      tabs: ["tab-1", "tab-2", "tab-3"],
+      tabNames: ["Going", "Not Going", "Unanswered"],
       active: null,
       invitableUsersDialog: false,
       invitables: [],
@@ -199,119 +199,173 @@ export default {
       auth: auth,
       drawer2: false,
       groups: []
-    }
+    };
   },
   methods: {
     check: function() {
-      let token = localStorage.getItem('id_token')
-      if(!token) {
-        router.push('/login')
+      let token = localStorage.getItem("id_token");
+      if (!token) {
+        router.push("/login");
       }
     },
-    addNewComment: function (eventId) {
+    addNewComment: function(eventId) {
       var data = {
         userId: auth.user.id,
         comment: this.newComment
-      }
-      this.$http.post('comments/' + eventId, data, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then((response) => {
-        this.getComments(eventId)
-        this.newComment = ''
-      })
-    },
-    getEvents: function(groupId) {
-      this.$http.get('events/' + groupId, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then(function(response) {
-        this.events = response.data
-      })
-    },
-    getComments: function(eventId) {
-      this.$http.get('comments/' + eventId, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then(function(response) {
-        this.comments = response.data.reverse()
-        this.tempEventId = eventId
-      })
-    },
-    getParticipants: function(eventId) {
-      this.$http.get('userevent/' + eventId, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then(function(response) {
-        var going = []
-        var notGoing = []
-        var unanswered = []
-        response.data.forEach(function(element) {
-          if(element.status === 1) {
-            going.push(element)
-          } else if (element.status === 2) {
-            notGoing.push(element)
-          } else {
-            unanswered.push(element)
+      };
+      this.$http
+        .post("comments/" + eventId, data, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("id_token")
           }
         })
-        this.going = going
-        this.notGoing = notGoing
-        this.unanswered = unanswered
-      })
+        .then(response => {
+          this.getComments(eventId);
+          this.newComment = "";
+        });
+    },
+    getEvents: function(groupId) {
+      this.$http
+        .get("events/" + groupId, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("id_token")
+          }
+        })
+        .then(function(response) {
+          this.events = response.data;
+        });
+    },
+    getComments: function(eventId) {
+      this.$http
+        .get("comments/" + eventId, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("id_token")
+          }
+        })
+        .then(function(response) {
+          this.comments = response.data.reverse();
+          this.tempEventId = eventId;
+        });
+    },
+    getParticipants: function(eventId) {
+      this.$http
+        .get("userevent/" + eventId, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("id_token")
+          }
+        })
+        .then(function(response) {
+          var going = [];
+          var notGoing = [];
+          var unanswered = [];
+          response.data.forEach(function(element) {
+            if (element.status === 1) {
+              going.push(element);
+            } else if (element.status === 2) {
+              notGoing.push(element);
+            } else {
+              unanswered.push(element);
+            }
+          });
+          this.going = going;
+          this.notGoing = notGoing;
+          this.unanswered = unanswered;
+        });
     },
     getGroups: function() {
-      this.$http.get('groups', { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then(function(response) {
-        var data = []
-        response.data.forEach(function(element) {
-          var temp = {
-            text: element.name,
-            value: element.groupId
+      this.$http
+        .get("groups", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("id_token")
           }
-        data.push(temp)
-      })
-      this.groups = data
-      })
+        })
+        .then(function(response) {
+          var data = [];
+          response.data.forEach(function(element) {
+            var temp = {
+              text: element.name,
+              value: element.groupId
+            };
+            data.push(temp);
+          });
+          this.groups = data;
+        });
     },
     attend: function(eventId) {
       var data = {
         userId: this.auth.user.id,
         status: 1,
         eventId: eventId
-      }
-      this.$http.post('userevent', data, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then((response) => {
-        this.getEvents()
-      })
+      };
+      this.$http
+        .post("userevent", data, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("id_token")
+          }
+        })
+        .then(response => {
+          this.getEvents();
+        });
     },
     cancel: function(eventId) {
       var data = {
         userId: this.auth.user.id,
         status: 2,
         eventId: eventId
-      }
-      this.$http.post('userevent', data, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then((response) => {
-        this.getEvents()
-      })
+      };
+      this.$http
+        .post("userevent", data, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("id_token")
+          }
+        })
+        .then(response => {
+          this.getEvents();
+        });
     },
-    next () {
-        this.active = this.tabs[(this.tabs.indexOf(this.active) + 1) % this.tabs.length]
+    next() {
+      this.active = this.tabs[
+        (this.tabs.indexOf(this.active) + 1) % this.tabs.length
+      ];
     },
     getInvitableUsers: function(eventId) {
-      this.$http.get('userevent/invitable/' + eventId, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then(function(response) {
-        this.invitables = response.data
-        this.tempInviteEventId = eventId
-      })
+      this.$http
+        .get("userevent/invitable/" + eventId, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("id_token")
+          }
+        })
+        .then(function(response) {
+          this.invitables = response.data;
+          this.tempInviteEventId = eventId;
+        });
     },
     inviteUser: function(eventId, userId) {
       var data = {
         userId: userId,
         eventId: eventId,
         status: 3
-      }
-      this.$http.post('userevent', data, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') }}).then((response) => {
-
-      })
+      };
+      this.$http
+        .post("userevent", data, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("id_token")
+          }
+        })
+        .then(response => {});
     }
   },
   computed: {
     newCommentValid() {
-      return this.newComment !== ''
+      return this.newComment !== "";
     }
   },
   created: function() {
-    this.check()
-    this.getEvents()
-    this.getGroups()
+    this.check();
+    this.getEvents();
+    this.getGroups();
   }
-}
+};
 </script>
 
 <style lang="css">

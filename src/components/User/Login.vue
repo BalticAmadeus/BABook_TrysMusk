@@ -35,64 +35,64 @@
 </template>
 
 <script>
-import auth from '../../js/auth.js';
-import router from '../../router/index.js'
-import { validationMixin } from 'vuelidate'
-import { required, maxLength, email } from 'vuelidate/lib/validators'
+import auth from "../../js/auth.js";
+import router from "../../router/index.js";
+import { validationMixin } from "vuelidate";
+import { required, maxLength, email } from "vuelidate/lib/validators";
 
 export default {
-    mixins: [validationMixin],
-    validations: {
-      email: { required, email },
-      password: { required }
+  mixins: [validationMixin],
+  validations: {
+    email: { required, email },
+    password: { required }
+  },
+  data() {
+    return {
+      email: "",
+      password: "",
+      error: false,
+      e1: true,
+      auth: auth
+    };
+  },
+  mounted: function() {
+    this.check();
+  },
+  methods: {
+    check: function() {
+      let token = localStorage.getItem("id_token");
+      if (!token) {
+        router.push("/login");
+      } else {
+        router.push("/");
+      }
     },
-    data() {
-            return {
-                email: '',
-                password: '',
-                error: false,
-                e1: true,
-                auth: auth
-            }
-        },
-        mounted: function() {
-        this.check()
-      },
-        methods: {
-          check: function() {
-            let token = localStorage.getItem('id_token')
-            if(!token) {
-              router.push('/login')
-            } else {
-              router.push('/')
-            }
-          },
-          clear () {
-            this.$v.$reset()
-            this.name = ''
-            this.email = ''
-            this.select = null
-            this.checkbox = false
-          },
-            login(event) {
-                event.preventDefault()
-                auth.login(this, this.email, this.password)
-            }
-        },
-        computed: {
-          emailErrors () {
-            const errors = []
-            if (!this.$v.email.$dirty) return errors
-            !this.$v.email.email && errors.push('Must be valid e-mail')
-            !this.$v.email.required && errors.push('E-mail is required')
-            return errors
-          },
-          passwordErrors () {
-            const errors = []
-            if (!this.$v.password.$dirty) return errors
-            !this.$v.password.required && errors.push('Password is required')
-            return errors
-          }
-        }
-}
+    clear() {
+      this.$v.$reset();
+      this.name = "";
+      this.email = "";
+      this.select = null;
+      this.checkbox = false;
+    },
+    login(event) {
+      event.preventDefault();
+      auth.login(this, this.email, this.password);
+    }
+  },
+  computed: {
+    emailErrors() {
+      const errors = [];
+      if (!this.$v.email.$dirty) return errors;
+      !this.$v.email.email && errors.push("Must be valid e-mail");
+      !this.$v.email.required && errors.push("E-mail is required");
+      return errors;
+    },
+    passwordErrors() {
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.required && errors.push("Password is required");
+      return errors;
+    }
+  }
+};
 </script>
