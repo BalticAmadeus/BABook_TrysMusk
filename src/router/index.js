@@ -10,7 +10,7 @@ Vue.use(Router)
 Vue.use(VueResource)
 
 Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.token;
-Vue.http.options.root = 'http://studentai.azurewebsites.com/api/';
+Vue.http.options.root = 'http://localhost:8000/api/';
 
 export default new Router({
   routes: [

@@ -24,21 +24,19 @@ export default {
 
         }
     },
-    // register(context, name, email, password) {
-    //     Vue.http.post(
-    //         'api/register',
-    //         {
-    //             name: name,
-    //             email: email,
-    //             password: password
-    //         }
-    //     ).then(response => {
-    //         context.success = true
-    //     }, response => {
-    //         context.response = response.data
-    //         context.error = true
-    //     })
-    // },
+    register(context, name, email, password) {
+      var data = {
+        name: name,
+        email: email,
+        password: password
+      }
+      Vue.http.post('register', data).then (response =>
+        context.error = false
+      ), response => {
+        context.response = response.data
+        context.error = true
+      }
+    },
     login: function (context, email, password) {
         Vue.http.post(
             'auth/login',
