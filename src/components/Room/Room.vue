@@ -27,9 +27,13 @@
        </v-flex>
 
 
-                 <v-btn>
+                 <v-btn
+                   @click="submit"
+                   :disabled="!valid"
+                 >
                    submit
                  </v-btn>
+                 <v-btn @click="clear">clear</v-btn>
              </v-flex>
            </v-layout>
          </v-container>
