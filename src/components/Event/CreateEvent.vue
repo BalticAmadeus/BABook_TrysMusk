@@ -83,6 +83,7 @@
       ></v-text-field>
 
               <v-btn
+              primary
                 @click="submit"
                 :disabled="!valid"
               >

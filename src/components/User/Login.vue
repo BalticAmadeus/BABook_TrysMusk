@@ -26,7 +26,7 @@
       required
     ></v-text-field>
 
-    <v-btn @click="login">submit</v-btn>
+    <v-btn @click="login" primary>submit</v-btn>
     <v-btn @click="clear">clear</v-btn>
   </v-form>
 </v-flex>

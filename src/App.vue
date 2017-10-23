@@ -32,7 +32,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app clipped-left class="primary">
+    <v-toolbar app clipped-left class="primary" dark>
       <v-toolbar-side-icon
       @click.native.stop="drawer = !drawer"
       class="hidden-sm-and-up"

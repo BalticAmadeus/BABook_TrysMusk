@@ -1,6 +1,6 @@
 <template lang="html">
 <v-container fluid grid-list-lg style="margin-top: 0">
-    <v-btn @click.stop="drawer2 = !drawer2" dark color="pink">Groups / Rooms</v-btn>
+    <v-btn @click.stop="drawer2 = !drawer2" dark primary>Groups / Rooms</v-btn>
         <v-layout row wrap>
           <v-flex xs12 sm6 md4 v-for="event in events" :key="event.eventId">
             <v-card class="primary white--text">
@@ -37,7 +37,7 @@
 
       <v-dialog v-model="commentDialog" transition="dialog-bottom-transition">
         <v-card>
-          <v-toolbar color="primary">
+          <v-toolbar dark color="primary">
             <v-btn icon @click.native="commentDialog = false">
               <v-icon>close</v-icon>
             </v-btn>
@@ -83,8 +83,8 @@
 
       <v-dialog v-model="participantsDialog">
       <v-card>
-        <v-card-title><v-tabs dark v-model="active">
-      <v-tabs-bar class="cyan">
+        <v-card-title><v-tabs dark primary v-model="active">
+      <v-tabs-bar>
         <v-tabs-item
           v-for="tab in tabs"
           :key="tab"
@@ -93,7 +93,7 @@
         >
           {{ tabNames[tab.slice(-1) - 1] }}
         </v-tabs-item>
-        <v-tabs-slider color="yellow"></v-tabs-slider>
+        <v-tabs-slider color="white"></v-tabs-slider>
       </v-tabs-bar>
       <v-tabs-items>
         <v-tabs-content
@@ -124,7 +124,7 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <v-btn icon ripple v-on:click="inviteUser(tempInviteEventId, invitable.userId)">
-                  <v-icon color="blue">send</v-icon>
+                  <v-icon color="primary">send</v-icon>
                 </v-btn>
               </v-list-tile-action>
             </v-list-tile>
