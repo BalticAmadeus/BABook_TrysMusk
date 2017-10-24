@@ -31,13 +31,6 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile>
-        <v-select
-              label="Backend to use"
-              v-model="select"
-              :items="items"
-              required
-              item-value="value"
-            ></v-select>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -80,7 +73,6 @@ export default {
     return {
       auth: auth,
       drawer: false,
-      selected: false,
       items: [
         {
           text: 'STUDENTAI',

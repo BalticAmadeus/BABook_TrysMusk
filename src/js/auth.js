@@ -55,7 +55,7 @@ export default {
     login (context, email, password) {
         var data = {
             grant_type: 'password',
-            email: email,
+            username: email,
             password: password,
         }
         var str = [];
@@ -73,8 +73,8 @@ export default {
             }
         ).then(response => {
             context.error = false
-            if (response.data.result) {
-                localStorage.setItem('access_token', response.data.result.token)
+            if (response.data) {
+                localStorage.setItem('access_token', response.data.access_token)
                 Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
 
                 this.user.authenticated = true
