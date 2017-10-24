@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap align-center>
-        <v-flex class="text-xs-center" xs12 sm6 offset-sm3>
+        <v-flex class="text-xs-center" xs12 sm4 offset-sm4>
             <v-alert color="success" icon="check_circle" value="true" v-if="success">
                 There was an error, unable to complete registration.
             </v-alert>
@@ -26,7 +26,7 @@
                                 type="password"
                                 required
                         ></v-text-field>
-                        <v-btn type="submit" primary>register</v-btn>
+                        <v-btn round type="submit" primary>register</v-btn>
                     </v-form>
                 </v-card-text>
             </v-card>
@@ -64,19 +64,13 @@ export default {
 };
 </script>
 
-<style lang="css">
-   /*
+<style lang="scss">
     // Colors
     $babook-pink: #f80aaf;
     $babook-blue: #44ccff;
     $babook-green: #0af89d;
     $babook-violet: #8a02fa;
     $text-color: #9e9e9e;
-    */
-
-   .toolbar__content{
-       background-color: rgba(0, 0, 0, 0.5);
-   }
 
     main{
         background-image: url("../../assets/space.jpg");
