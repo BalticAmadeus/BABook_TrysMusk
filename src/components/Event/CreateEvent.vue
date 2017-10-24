@@ -1,15 +1,15 @@
 <template>
   <v-container fill-height>
-        <v-layout row wrap align-center>
-          <v-flex class="text-xs-center">
+    <v-layout row wrap align-center>
+      <v-flex class="text-xs-center" xs12 sm6 offset-sm3>
+          <v-card>
             <h2>Create new event!</h2>
+            <v-flex xs8 sm8 offset-sm2 offset-xs2>
             <v-form v-model="valid" ref="form" lazy-validation>
               <v-select
                 label="Group"
                 v-model="select"
                 :items="items"
-                :rules="[v => !!v || 'Item is required']"
-                required
                 item-value="value"
               ></v-select>
               <v-text-field
@@ -91,6 +91,8 @@
               </v-btn>
               <v-btn @click="clear">clear</v-btn>
             </v-form>
+            </v-flex>
+            </v-card>
           </v-flex>
         </v-layout>
       </v-container>

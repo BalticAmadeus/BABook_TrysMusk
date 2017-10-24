@@ -17,6 +17,7 @@ export default {
                     { 'Authorization': 'Bearer ' + token }
                 }
             ).then(response => {
+                console.log(response.data)
                 this.user.authenticated = true
                 this.user.id = response.body.id
                 this.user.name = response.body.name
@@ -79,7 +80,7 @@ export default {
 
                 this.user.authenticated = true
                 this.user.profile = response.data.result
-                router.push('/events')
+                router.go('/events')
             } else {
                 context.error = true
             }

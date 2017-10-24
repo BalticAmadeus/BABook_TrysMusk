@@ -15,7 +15,7 @@
                       <v-btn v-if="event.status == 1" flat icon color="red" v-on:click="cancel(event.eventId)">
                         <v-icon>clear</v-icon>
                       </v-btn>
-                      <v-btn v-else-if="event.status == 2 || event.status == 3 || event.status == 0" flat icon color="green" v-on:click="attend(event.eventId)">
+                      <v-btn v-else-if="event.status == 2 || event.status == 3 || event.status == 0 || event.status == null" flat icon color="green" v-on:click="attend(event.eventId)">
                         <v-icon>done</v-icon>
                       </v-btn>
                       <v-btn flat icon color="white" @click.native.stop="commentDialog = true" v-on:click="getComments(event.eventId)">
@@ -224,8 +224,8 @@ export default {
         });
     },
     getEvents: function(groupId) {
-      this.$http
-        .get("events/group/" + groupId, {
+      if(groupId) {
+      this.$http.get("events/group/" + groupId, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("access_token")
           }
@@ -234,6 +234,17 @@ export default {
           this.events = response.data;
           this.tempGroupId = groupId;
         });
+      } else {
+        this.$http.get("events", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token")
+          }
+        })
+        .then(function(response) {
+          this.events = response.data;
+        });
+      }
+      
     },
     getComments: function(eventId) {
       this.$http
@@ -295,6 +306,7 @@ export default {
         });
     },
     attend: function(eventId) {
+      console.log(this.auth)
       var data = {
         userId: this.auth.user.id,
         status: 1,
@@ -365,6 +377,7 @@ export default {
   },
   created: function() {
     this.check();
+    this.getEvents(null)
     this.getGroups();
   }
 };

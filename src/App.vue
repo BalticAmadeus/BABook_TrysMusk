@@ -50,6 +50,7 @@
       </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-select dark label="Group" v-model="select" :items="items" item-value="value" v-on:change="changeBack"></v-select>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn flat
         router
@@ -70,6 +71,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import auth from "./js/auth.js";
 import * as CONFIG from './config.js'
 
@@ -78,6 +80,7 @@ export default {
     return {
       auth: auth,
       drawer: false,
+      select: null,
       items: [
         {
           text: 'STUDENTAI',
@@ -97,6 +100,12 @@ export default {
   methods: {
     logout: function() {
       auth.logout();
+    },
+    changeBack: function () {
+      console.log(this.select)
+      localStorage.setItem('back', this.select)
+      var back = localStorage.getItem('back')
+      console.log(back)
     }
   },
   mounted: function() {

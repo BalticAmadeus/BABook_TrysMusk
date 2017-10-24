@@ -11,10 +11,11 @@ import Home from '@/components/Home'
 Vue.use(Router)
 Vue.use(VueResource)
 
-Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.access_token;
-// Vue.http.options.root = 'http://localhost:8000/api/';
-//Vue.http.options.root = 'http://studentai.azurewebsites.net/api/';
-Vue.http.options.root = 'http://trycatch2017.azurewebsites.net/api/';
+// Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.access_token;
+// Vue.http.options.root = 'http://studentai.azurewebsites.net/api/';
+// Vue.http.options.root = 'http://trycatch2017.azurewebsites.net/api/';
+// Vue.http.options.root = 'http://52.138.141.135/index.php/api/';
+Vue.http.options.root = localStorage.getItem('back')
 
 export default new Router({
   routes: [
