@@ -17,10 +17,15 @@ class ApiController extends Controller
     }
 
     public function login(Request $request){
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('username', 'password');
+        $creds = [
+            'email' => $credentials['username'],
+            'password' => $credentials['password']
+        ];
+
         $token = null;
         try {
-            if (!$token = JWTAuth::attempt($credentials)) {
+            if (!$token = JWTAuth::attempt($creds)) {
                 return response()->json([
                     'response' => 'error',
                     'message' => 'invalid_email_or_password',
@@ -34,9 +39,7 @@ class ApiController extends Controller
         }
         return response()->json([
             'response' => 'success',
-            'result' => [
-                'token' => $token,
-            ],
+            'access_token' => $token
         ]);
     }
 
