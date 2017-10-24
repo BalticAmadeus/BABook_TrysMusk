@@ -11,7 +11,7 @@ use JWTAuth;
 
 class EventsController extends Controller
 {
-    public function index()
+    public function index($groupId)
     {
         $data = [];
         $userId = JWTAuth::user()->id;
@@ -20,7 +20,7 @@ class EventsController extends Controller
             $events = Event::select('id', 'groupId', 'userId', 'date', 'title', 'location', 'comment')
                 ->with(array('group' => function($query){
                     $query->select('id', 'name');
-                }))->get();
+                }))->where('groupId', $groupId)->get();
 
             foreach($events as $event) {
                 $status = EventsUsers::select('status')->where('userId', $userId)->where('eventId', $event->id)->first();

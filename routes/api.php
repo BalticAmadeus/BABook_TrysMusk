@@ -19,7 +19,7 @@ Route::group(['middleware' => ['api']], function () {
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::get('user', 'ApiController@getAuthUser');
         Route::namespace('api')->group(function () {
-            Route::get('events', 'EventsController@index');
+            Route::get('events/{groupId}', 'EventsController@index');
             Route::get('events/{eventId}', 'EventsController@show');
             Route::post('events', 'EventsController@store');
             Route::put('events/{eventId}', 'EventsController@update');
