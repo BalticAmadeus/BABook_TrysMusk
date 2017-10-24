@@ -55,7 +55,7 @@ export default {
     login (context, email, password) {
         var data = {
             grant_type: 'password',
-            username: email,
+            email: email,
             password: password,
         }
         var str = [];
