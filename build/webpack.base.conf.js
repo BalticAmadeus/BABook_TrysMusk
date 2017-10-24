@@ -76,6 +76,10 @@ module.exports = {
       {
         test: /\.styl$/,
         loader: ['css-loader', 'stylus-loader']
+      },
+      {
+          test: /\.scss$/,
+          loader: ['style', 'css', 'sass']
       }
     ]
   }

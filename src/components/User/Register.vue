@@ -1,36 +1,50 @@
 <template>
-    <div>
-        <div class="alert alert-danger" v-if="error && !success">
-            <p>There was an error, unable to complete registration.</p>
-        </div>
-        <div class="alert alert-success" v-if="success">
-            <p>Registration completed. You can now sign in.</p>
-        </div>
-        <form autocomplete="off" v-on:submit="register" v-if="!success">
-            <div class="form-group" v-bind:class="{ 'has-error': error && response.username }">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" v-model="name" required>
-                <span class="help-block" v-if="error && response.name">{{ response.name }}</span>
-            </div>
-            <div class="form-group" v-bind:class="{ 'has-error': error && response.email }">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control" placeholder="gavin.belson@hooli.com" v-model="email" required>
-                <span class="help-block" v-if="error && response.email">{{ response.email }}</span>
-            </div>
-            <div class="form-group" v-bind:class="{ 'has-error': error && response.password }">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" v-model="password" required>
-                <span class="help-block" v-if="error && response.password">{{ response.password }}</span>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-    </div>
+    <v-layout row wrap align-center>
+        <v-flex class="text-xs-center">
+            <v-alert color="success" icon="check_circle" value="true" v-if="success">
+                There was an error, unable to complete registration.
+            </v-alert>
+            <v-alert color="error" icon="warning" value="true" v-if="error && !success">
+                Registration completed. You can now sign in.
+            </v-alert>
+            <v-card >
+                <v-card-text>
+                    <v-form autocomplete="off" v-on:submit="register" v-if="!success">
+                        <v-text-field
+                                label="Name"
+                                v-model="name"
+                                required
+                        ></v-text-field>
+                        <v-text-field
+                                label="Email"
+                                v-model="email"
+                                required
+                        ></v-text-field>
+                        <v-text-field
+                                label="Password"
+                                v-model="password"
+                                type="password"
+                                required
+                        ></v-text-field>
+                        <v-btn type="submit" primary>register</v-btn>
+                    </v-form>
+                </v-card-text>
+            </v-card>
+        </v-flex>
+    </v-layout>
 </template>
+
 <script>
 import auth from "../../js/auth.js";
+import router from "../../router/index.js";
+import VCard from "vuetify/es5/components/VCard/VCard";
+import VCardTitle from "vuetify/es5/components/VCard/VCardTitle";
 
 export default {
-  data() {
+    components: {
+        VCardTitle,
+        VCard},
+    data() {
     return {
       name: null,
       email: null,
@@ -44,7 +58,38 @@ export default {
     register(event) {
       event.preventDefault();
       auth.register(this, this.name, this.email, this.password);
+      router.push("/login")
     }
   }
 };
 </script>
+
+<style lang="css">
+   /*
+    // Colors
+    $babook-pink: #f80aaf;
+    $babook-blue: #44ccff;
+    $babook-green: #0af89d;
+    $babook-violet: #8a02fa;
+    $text-color: #9e9e9e;
+    */
+
+   .toolbar__content{
+       background-color: rgba(0, 0, 0, 0.5);
+   }
+
+    main{
+        background-image: url("../../assets/space.jpg");
+        background-position: center;
+        background-size: cover;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .card{
+        background: inherit;
+    }
+</style>
