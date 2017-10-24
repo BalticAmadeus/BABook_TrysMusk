@@ -1,11 +1,5 @@
 <template lang="html">
 
-        <v-container>
-            <v-template row>
-                <router-link to="/login"><v-btn round>Login</v-btn></router-link>
-            </v-template>
-        </v-container>
-
 </template>
 
 <script>
@@ -13,7 +7,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     // Colors
     $babook-pink: #f80aaf;
     $babook-blue: #44ccff;
