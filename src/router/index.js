@@ -6,6 +6,7 @@ import CreateEvent from '@/components/Event/CreateEvent'
 import Login from '@/components/User/Login'
 import Register from '@/components/User/Register'
 import Room from '@/components/Room/Room'
+import Home from '@/components/Home'
 
 Vue.use(Router)
 Vue.use(VueResource)
@@ -19,6 +20,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/events',
       name: 'Events',
       component: Events
     },
