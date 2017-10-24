@@ -9,7 +9,7 @@ export default {
     },
     check: function () {
         let token = localStorage.getItem('access_token')
-        if (token !== null) {
+        if (token) {
             Vue.http.get(
                 'user',
                 {
@@ -18,8 +18,8 @@ export default {
                 }
             ).then(response => {
                 this.user.authenticated = true
-                this.user.id = response.body.result.id
-                this.user.name = response.body.result.name
+                this.user.id = response.body.id
+                this.user.name = response.body.name
             })
         } else {
 
@@ -79,7 +79,7 @@ export default {
 
                 this.user.authenticated = true
                 this.user.profile = response.data.result
-                router.go('/events')
+                router.push('/events')
             } else {
                 context.error = true
             }
@@ -92,6 +92,6 @@ export default {
         this.user.authenticated = false
         this.user.profile = null
 
-        router.go('/login');
+        router.push('/');
     }
 }

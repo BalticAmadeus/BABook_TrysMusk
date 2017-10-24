@@ -15,7 +15,7 @@
                       <v-btn v-if="event.status == 1" flat icon color="red" v-on:click="cancel(event.eventId)">
                         <v-icon>clear</v-icon>
                       </v-btn>
-                      <v-btn v-else-if="event.status == 2 || event.status == null" flat icon color="green" v-on:click="attend(event.eventId)">
+                      <v-btn v-else-if="event.status == 2 || event.status == 3 || event.status == 0" flat icon color="green" v-on:click="attend(event.eventId)">
                         <v-icon>done</v-icon>
                       </v-btn>
                       <v-btn flat icon color="white" @click.native.stop="commentDialog = true" v-on:click="getComments(event.eventId)">
@@ -83,14 +83,13 @@
 
       <v-dialog v-model="participantsDialog">
       <v-card>
-        <v-card-title><v-tabs dark primary v-model="active">
+        <v-card-title>
+          <v-tabs dark primary v-model="active">
       <v-tabs-bar>
         <v-tabs-item
           v-for="tab in tabs"
           :key="tab"
-          :href="'#' + tab"
-          ripple
-        >
+          :href="'#' + tab">
           {{ tabNames[tab.slice(-1) - 1] }}
         </v-tabs-item>
         <v-tabs-slider color="white"></v-tabs-slider>
@@ -99,12 +98,11 @@
         <v-tabs-content
           v-for="tab in tabs"
           :key="tab"
-          :id="tab"
-        >
-          <v-card flat>
+          :id="tab">
+          <v-card>
             <v-card-text v-if="tab.slice(-1) == 1" v-for="g in going" :key="g.name">{{ g.name }}</v-card-text>
-            <v-card-text v-else-if="tab.slice(-1) == 2" v-for="n in notGoing" :key="n.name">{{ n.name }}</v-card-text>
-            <v-card-text v-else-if="tab.slice(-1) == 3" v-for="u in unanswered" :key="u.name">{{ u.name }}</v-card-text>
+            <v-card-text v-if="tab.slice(-1) == 2" v-for="n in notGoing" :key="n.name">{{ n.name }}</v-card-text>
+            <v-card-text v-if="tab.slice(-1) == 3" v-for="u in unanswered" :key="u.name">{{ u.name }}</v-card-text>
           </v-card>
         </v-tabs-content>
       </v-tabs-items>
@@ -198,7 +196,8 @@ export default {
       tempInviteEventId: null,
       auth: auth,
       drawer2: false,
-      groups: []
+      groups: [],
+      tempGroupId: null
     };
   },
   methods: {
@@ -226,13 +225,14 @@ export default {
     },
     getEvents: function(groupId) {
       this.$http
-        .get("events/" + groupId, {
+        .get("events/group/" + groupId, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(function(response) {
           this.events = response.data;
+          this.tempGroupId = groupId;
         });
     },
     getComments: function(eventId) {
@@ -258,12 +258,15 @@ export default {
           var going = [];
           var notGoing = [];
           var unanswered = [];
+          console.log(response.data);
           response.data.forEach(function(element) {
-            if (element.status === 1) {
+            if (element.status == 1) {
               going.push(element);
-            } else if (element.status === 2) {
+            }
+            if (element.status == 2) {
               notGoing.push(element);
-            } else {
+            }
+            if (element.status == 3) {
               unanswered.push(element);
             }
           });
@@ -304,7 +307,7 @@ export default {
           }
         })
         .then(response => {
-          this.getEvents();
+          this.getEvents(this.tempGroupId);
         });
     },
     cancel: function(eventId) {
@@ -320,7 +323,7 @@ export default {
           }
         })
         .then(response => {
-          this.getEvents();
+          this.getEvents(this.tempGroupId);
         });
     },
     next() {
@@ -362,15 +365,24 @@ export default {
   },
   created: function() {
     this.check();
-    this.getEvents();
     this.getGroups();
   }
 };
 </script>
 
-<style lang="css">
+<style lang="scss">
+// Colors
+$babook-pink: #f80aaf;
+$babook-blue: #44ccff;
+$babook-green: #0af89d;
+$babook-violet: #8a02fa;
+$text-color: #9e9e9e;
+
 div.dialog.dialog--active {
   max-width: 500px !important;
   max-height: 500px !important;
+}
+.main {
+  background-image: url("../../assets/space.jpg");
 }
 </style>

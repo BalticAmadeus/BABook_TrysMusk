@@ -39,7 +39,12 @@
       @click.native.stop="drawer = !drawer"
       class="hidden-sm-and-up"
       ></v-toolbar-side-icon>
-      <v-toolbar-title>
+      <v-toolbar-title v-if="!auth.user.authenticated">
+        <router-link to="/">
+          <img src="static/babookWithStars.png" alt="BAbook logo" width="300px">
+      </router-link>
+      </v-toolbar-title>
+      <v-toolbar-title v-if="auth.user.authenticated">
         <router-link to="/events">
           <img src="static/babookWithStars.png" alt="BAbook logo" width="300px">
       </router-link>

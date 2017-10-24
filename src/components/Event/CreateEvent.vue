@@ -16,7 +16,7 @@
                 label="Title"
                 v-model="title"
                 :rules="titleRules"
-                :counter="10"
+                :counter="50"
                 required
               ></v-text-field>
               <v-text-field
@@ -108,7 +108,7 @@ export default {
     title: "",
     titleRules: [
       v => !!v || "Title is required",
-      v => (v && v.length <= 10) || "Title must be less than 10 characters"
+      v => (v && v.length <= 50) || "Title must be less than 50 characters"
     ],
     location: "",
     locationRules: [v => !!v || "Location is required"],
@@ -179,6 +179,15 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="scss">
+// Colors
+$babook-pink: #f80aaf;
+$babook-blue: #44ccff;
+$babook-green: #0af89d;
+$babook-violet: #8a02fa;
+$text-color: #9e9e9e;
 
+.main {
+  background-image: url("../../assets/space.jpg");
+}
 </style>

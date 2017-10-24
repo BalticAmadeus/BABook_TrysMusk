@@ -101,12 +101,7 @@ export default {
      $text-color: #9e9e9e;
 
 
-    main{
+    .main {
         background-image: url("../../assets/space.jpg");
-        background-position: center;
-        background-size: cover;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
     }
 </style>
