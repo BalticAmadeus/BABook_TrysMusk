@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap align-center>
-        <v-flex class="text-xs-center">
+        <v-flex class="text-xs-center" xs12 sm6 offset-sm3>
             <v-alert color="success" icon="check_circle" value="true" v-if="success">
                 There was an error, unable to complete registration.
             </v-alert>
@@ -85,11 +85,5 @@ export default {
         height: 100vh;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .card{
-        background: inherit;
     }
 </style>

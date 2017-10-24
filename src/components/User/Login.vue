@@ -1,37 +1,39 @@
 <template>
-  <v-container fill-height>
   <v-layout row wrap align-center>
-    <v-flex class="text-xs-center">
-      <h2>Login to BAbook</h2>
-      <h3 v-if="error">Unable to sign in with these credentials!</h3>
-  <v-form>
-    <v-text-field
-      label="Email"
-      v-model="email"
-      :error-messages="emailErrors"
-      @input="$v.email.$touch()"
-      @blur="$v.email.$touch()"
-      required
-    ></v-text-field>
-    <v-text-field
-      name="input-10-1"
-      :append-icon="e1 ? 'visibility' : 'visibility_off'"
-      :append-icon-cb="() => (e1 = !e1)"
-      :type="e1 ? 'password' : 'text'"
-      label="Password"
-      v-model="password"
-      :error-messages="passwordErrors"
-      @input="$v.password.$touch()"
-      @blur="$v.password.$touch()"
-      required
-    ></v-text-field>
+      <v-flex class="text-xs-center" xs12 sm6 offset-sm3>
+          <v-card>
+              <v-card-text>
+                  <v-alert color="error" icon="warning" value="true" v-if="error">
+                      Unable to sign in with these credentials!
+                  </v-alert>
+                  <v-form>
+                      <v-text-field
+                              label="Email"
+                              v-model="email"
+                              :error-messages="emailErrors"
+                              @input="$v.email.$touch()"
+                              @blur="$v.email.$touch()"
+                              required
+                      ></v-text-field>
+                      <v-text-field
+                              name="input-10-1"
+                              :append-icon="e1 ? 'visibility' : 'visibility_off'"
+                              :append-icon-cb="() => (e1 = !e1)"
+                              :type="e1 ? 'password' : 'text'"
+                              label="Password"
+                              v-model="password"
+                              :error-messages="passwordErrors"
+                              @input="$v.password.$touch()"
+                              @blur="$v.password.$touch()"
+                              required
+                      ></v-text-field>
 
-    <v-btn @click="login" primary>submit</v-btn>
-    <v-btn @click="clear">clear</v-btn>
-  </v-form>
-</v-flex>
-</v-layout>
-</v-container>
+                      <v-btn @click="login" primary>submit</v-btn>
+                  </v-form>
+              </v-card-text>
+          </v-card>
+      </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -67,13 +69,6 @@ export default {
         router.push("/");
       }
     },
-    clear() {
-      this.$v.$reset();
-      this.name = "";
-      this.email = "";
-      this.select = null;
-      this.checkbox = false;
-    },
     login(event) {
       event.preventDefault();
       auth.login(this, this.email, this.password);
@@ -96,3 +91,27 @@ export default {
   }
 };
 </script>
+
+<style lang="css">
+    /*
+     // Colors
+     $babook-pink: #f80aaf;
+     $babook-blue: #44ccff;
+     $babook-green: #0af89d;
+     $babook-violet: #8a02fa;
+     $text-color: #9e9e9e;
+     */
+
+    .toolbar__content{
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    main{
+        background-image: url("../../assets/space.jpg");
+        background-position: center;
+        background-size: cover;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
