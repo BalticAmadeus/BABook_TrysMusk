@@ -40,16 +40,16 @@ export default {
     },
     login: function (context, email, password) {
         var data = {
-            email: email,
+            username: email,
             password: password,
             grant_type: 'password'
         }
         Vue.http.post(
-            'auth/login',
+            'login',
             data,{
             headers: {
-                'Content-Type' : 'application/x-www-form-urlencoded'
-                },
+            'Content-Type' : 'application/x-www-form-urlencoded'
+            },
             }
         ).then(response => {
             context.error = false
@@ -59,7 +59,7 @@ export default {
 
                 this.user.authenticated = true
                 this.user.profile = response.data.result
-                router.go('/')
+                router.go('/events')
             } else {
                 context.error = true
             }
@@ -72,6 +72,6 @@ export default {
         this.user.authenticated = false
         this.user.profile = null
 
-        router.push('/login');
+        router.go('/login');
     }
 }

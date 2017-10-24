@@ -123,10 +123,9 @@ export default {
   }),
   methods: {
     check: function() {
-      auth.check();
       let token = localStorage.getItem("access_token");
       if (!token) {
-        router.push("/login");
+        router.go("/login");
       }
     },
     submit: function() {
@@ -146,7 +145,7 @@ export default {
             }
           })
           .then(response => {
-            this.$router.push("/");
+            this.$router.push("/events");
           });
       }
     },

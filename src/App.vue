@@ -38,7 +38,7 @@
       class="hidden-sm-and-up"
       ></v-toolbar-side-icon>
       <v-toolbar-title>
-        <router-link to="/">
+        <router-link to="/events">
           <img src="static/babookWithStars.png" alt="BAbook logo" width="300px">
       </router-link>
       </v-toolbar-title>
