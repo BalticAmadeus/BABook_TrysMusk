@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
+use JWTAuth;
 
 class AttendanceController extends Controller
 {
@@ -73,16 +74,21 @@ class AttendanceController extends Controller
     public function invitable($eventId)
     {
         $data = [];
+        $loggedInUser = JWTAuth::user()->id;
         $users = User::get();
 
         foreach ($users as $user) {
             $eventUsers = EventsUsers::where('eventId', $eventId)->where('userId', $user->id)->get();
             if(count($eventUsers) == 0) {
-                $temp = [
-                    "userId" => $user->id,
-                    "name" => $user->name
-                ];
-                array_push($data, $temp);
+                if($user->id == $loggedInUser) {
+                    continue;
+                } else {
+                    $temp = [
+                        "userId" => $user->id,
+                        "name" => $user->name
+                    ];
+                    array_push($data, $temp);
+                }   
             } else {
                 foreach ($eventUsers as $eventUser) {
                     if($eventUser->userId != $user->id) {
