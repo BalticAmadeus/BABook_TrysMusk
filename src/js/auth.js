@@ -31,19 +31,39 @@ export default {
             email: email,
             password: password
         }
-        Vue.http.post('register', data).then(response =>
+
+        var str = [];
+        for(var p in data)
+          if (data.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(data[p]));
+          }
+        data = str.join("&");
+
+
+        Vue.http.post('register', data,
+        { headers: {
+            'Content-Type' : 'application/x-www-form-urlencoded'
+            }
+        }
+        ).then(response =>
             context.error = false
         ), response => {
             context.response = response.data
             context.error = true
         }
     },
-    login: function (context, email, password) {
+    login (context, email, password) {
         var data = {
+            grant_type: 'password',
             username: email,
             password: password,
-            grant_type: 'password'
         }
+        var str = [];
+        for(var p in data)
+          if (data.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(data[p]));
+          }
+        data = str.join("&");
         Vue.http.post(
             'login',
             data,{

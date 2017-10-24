@@ -30,6 +30,15 @@
             <v-list-tile-title>Logout</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile>
+        <v-select
+              label="Backend to use"
+              v-model="select"
+              :items="items"
+              required
+              item-value="value"
+            ></v-select>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app clipped-left class="primary" dark>
@@ -64,12 +73,28 @@
 
 <script>
 import auth from "./js/auth.js";
+import * as CONFIG from './config.js'
 
 export default {
   data() {
     return {
       auth: auth,
-      drawer: false
+      drawer: false,
+      selected: false,
+      items: [
+        {
+          text: 'STUDENTAI',
+          value: CONFIG.STUDENTAI
+        },
+        {
+          text: 'TRYCATCH',
+          value: CONFIG.TRYCATCH
+        },
+        {
+          text: 'TRYSMUSK',
+          value: CONFIG.TRYSMUSK
+        },
+        ]
     };
   },
   methods: {

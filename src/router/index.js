@@ -11,7 +11,7 @@ import Home from '@/components/Home'
 Vue.use(Router)
 Vue.use(VueResource)
 
-Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.token;
+//Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.token;
 // Vue.http.options.root = 'http://localhost:8000/api/';
 //Vue.http.options.root = 'http://studentai.azurewebsites.net/api/';
 Vue.http.options.root = 'http://trycatch2017.azurewebsites.net/api/';

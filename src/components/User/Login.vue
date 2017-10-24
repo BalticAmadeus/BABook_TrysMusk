@@ -6,13 +6,6 @@
                   <v-alert color="error" icon="warning" value="true" v-if="error">
                       Unable to sign in with these credentials!
                   </v-alert>
-                 <v-select
-                label="Backend to use"
-                v-model="select"
-                :items="items"
-                required
-                item-value="value"
-              ></v-select>
                   <v-form>
                       <v-text-field
                               label="Email"
@@ -47,7 +40,6 @@ import auth from "../../js/auth.js";
 import router from "../../router/index.js";
 import { validationMixin } from "vuelidate";
 import { required, maxLength, email } from "vuelidate/lib/validators";
-import * as CONFIG from '../../config.js'
 
 export default {
   mixins: [validationMixin],
@@ -61,22 +53,7 @@ export default {
       password: "",
       error: false,
       e1: true,
-      auth: auth,
-      select: null,
-      items: [
-        {
-          text: 'STUDENTAI',
-          value: CONFIG.STUDENTAI
-        },
-        {
-          text: 'TRYCATCH',
-          value: CONFIG.TRYCATCH
-        },
-        {
-          text: 'TRYSMUSK',
-          value: CONFIG.TRYSMUSK
-        },
-        ]
+      auth: auth
     };
   },
   mounted: function() {
