@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     check: function() {
-      let token = localStorage.getItem("id_token");
+      let token = localStorage.getItem("access_token");
       if (!token) {
         router.push("/login");
       } else {

@@ -8,7 +8,7 @@ export default {
         name: null
     },
     check: function () {
-        let token = localStorage.getItem('id_token')
+        let token = localStorage.getItem('access_token')
         if (token !== null) {
             Vue.http.get(
                 'user',
@@ -48,8 +48,8 @@ export default {
         ).then(response => {
             context.error = false
             if (response.data.result) {
-                localStorage.setItem('id_token', response.data.result.token)
-                Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token')
+                localStorage.setItem('access_token', response.data.result.token)
+                Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
 
                 this.user.authenticated = true
                 this.user.profile = response.data.result
@@ -62,7 +62,7 @@ export default {
         })
     },
     logout: function () {
-        window.localStorage.removeItem('id_token')
+        window.localStorage.removeItem('access_token')
         this.user.authenticated = false
         this.user.profile = null
 

@@ -124,7 +124,7 @@ export default {
   methods: {
     check: function() {
       auth.check();
-      let token = localStorage.getItem("id_token");
+      let token = localStorage.getItem("access_token");
       if (!token) {
         router.push("/login");
       }
@@ -142,7 +142,7 @@ export default {
         this.$http
           .post("events", data, {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("id_token")
+              Authorization: "Bearer " + localStorage.getItem("access_token")
             }
           })
           .then(response => {
@@ -154,7 +154,7 @@ export default {
       this.$http
         .get("groups", {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("id_token")
+            Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(function(response) {

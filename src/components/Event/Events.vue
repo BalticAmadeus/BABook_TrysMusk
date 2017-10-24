@@ -203,7 +203,7 @@ export default {
   },
   methods: {
     check: function() {
-      let token = localStorage.getItem("id_token");
+      let token = localStorage.getItem("access_token");
       if (!token) {
         router.push("/login");
       }
@@ -216,7 +216,7 @@ export default {
       this.$http
         .post("comments/" + eventId, data, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("id_token")
+            Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(response => {
@@ -228,7 +228,7 @@ export default {
       this.$http
         .get("events/" + groupId, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("id_token")
+            Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(function(response) {
@@ -239,7 +239,7 @@ export default {
       this.$http
         .get("comments/" + eventId, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("id_token")
+            Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(function(response) {
@@ -251,7 +251,7 @@ export default {
       this.$http
         .get("userevent/" + eventId, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("id_token")
+            Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(function(response) {
@@ -276,7 +276,7 @@ export default {
       this.$http
         .get("groups", {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("id_token")
+            Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(function(response) {
@@ -300,7 +300,7 @@ export default {
       this.$http
         .post("userevent", data, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("id_token")
+            Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(response => {
@@ -316,7 +316,7 @@ export default {
       this.$http
         .post("userevent", data, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("id_token")
+            Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(response => {
@@ -332,7 +332,7 @@ export default {
       this.$http
         .get("userevent/invitable/" + eventId, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("id_token")
+            Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(function(response) {
@@ -349,7 +349,7 @@ export default {
       this.$http
         .post("userevent", data, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("id_token")
+            Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
         .then(response => {});
