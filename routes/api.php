@@ -20,6 +20,7 @@ Route::group(['middleware' => ['api']], function () {
         Route::get('user', 'ApiController@getAuthUser');
         Route::namespace('api')->group(function () {
             Route::get('events/group/{groupId}', 'EventsController@index');
+            Route::get('events', 'EventsController@getAllEvents');
             Route::get('events/{eventId}', 'EventsController@show');
             Route::post('events', 'EventsController@store');
             Route::put('events/{eventId}', 'EventsController@update');

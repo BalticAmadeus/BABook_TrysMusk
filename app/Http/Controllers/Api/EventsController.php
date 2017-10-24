@@ -46,6 +46,41 @@ class EventsController extends Controller
         }
     }
 
+    public function getAllEvents()
+    {
+        $data = [];
+        $userId = JWTAuth::user()->id;
+
+        if($userId) {
+            $events = Event::select('id', 'groupId', 'userId', 'date', 'title', 'location', 'comment')
+                ->with(array('group' => function($query){
+                    $query->select('id', 'name');
+                }))->get();
+
+            foreach($events as $event) {
+                $status = EventsUsers::select('status')->where('userId', $userId)->where('eventId', $event->id)->first();
+
+                $creatorName = User::find($event->userId)->name;
+
+                $temp = [
+                    "eventId" => $event->id,
+                    "creatorName" => $creatorName,
+                    "groupName" => $event->group["name"],
+                    "date" => $event->date,
+                    "title" => $event->title,
+                    "comment" => $event->comment,
+                    "location" => $event->location,
+                    "status" => $status['status']
+                ];
+                array_push($data, $temp);
+            }
+
+            return response()->json($data);
+        } else {
+            return response()->json("user not found!");
+        }
+    }
+
     public function show($eventId)
     {
         return Event::find($eventId)->get(['id', 'groupId', 'userId', 'title', 'date', 'comment', 'location']);
