@@ -39,11 +39,17 @@ export default {
         }
     },
     login: function (context, email, password) {
+        var data = {
+            email: email,
+            password: password,
+            grant_type: 'password'
+        }
         Vue.http.post(
             'auth/login',
-            {
-                email: email,
-                password: password
+            data,{
+            headers: {
+                'Content-Type' : 'application/x-www-form-urlencoded'
+                },
             }
         ).then(response => {
             context.error = false
