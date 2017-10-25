@@ -2,7 +2,6 @@
 <v-container>
     <v-layout row wrap align-center v-if="!auth.user.authenticated">
      <v-flex class="text-xs-center" xs12 sm6 offset-sm3>
-         {{ select }}
 <v-select dark label="Backend" v-model="select" :items="items" item-value="value"></v-select>
 </v-flex>
 </v-layout>
@@ -18,7 +17,7 @@
     return {
      auth: auth,
      drawer: false,
-     select: CONFIG.TRYCATCH,
+     select: null,
       items: [
          {
            text: 'STUDENTAI',

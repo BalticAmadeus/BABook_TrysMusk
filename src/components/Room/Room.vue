@@ -4,10 +4,11 @@
                 <v-card>
                     <v-card-title>
                         <v-flex class="text-xs-center">
-                            <v-btn round primary v-on:click="start" :disabled="disabled">
+                            <!-- <v-btn round primary v-on:click="start" :disabled="disabled">
                                 Start discussion
-                            </v-btn>
+                            </v-btn> -->
                         </v-flex>
+                        <!-- <v-btn id="stopCon">Stop</v-btn> -->
                     </v-card-title>
                     <v-card-text>
                         <v-flex xs12 sm10 offset-sm1>
@@ -22,10 +23,11 @@
                                         label="Message"
                                         type="text"
                                         id="message"
+                                        v-model="message"
                                         required
                                 ></v-text-field>
                                 <v-flex class="text-xs-right">
-                                    <v-btn id="sendMessage">Send</v-btn>
+                                    <v-btn id="sendMessage" v-on:click="clearMessage()">Send</v-btn>
                                 </v-flex>
  
                                 <input type="hidden" id="displayname" />
@@ -39,22 +41,29 @@
 
 <script>
 import Vue from "vue";
-import * as CONFIG from '../../config.js';
+import * as CONFIG from "../../config.js";
+import auth from "../../js/auth";
 
 export default {
   data() {
     return {
       disabled: false,
-     
+      auth: auth,
+      message: '',
+      stopConnection: false
     };
   },
   methods: {
     start: function() {
+      this.stopConnection = false;
       this.disabled = true;
       var connection;
-      var back = localStorage.getItem('back');
-      back == CONFIG.STUDENTAI ? connection = $.hubConnection("http://studentai.azurewebsites.net") 
-      : connection = $.hubConnection("http://trycatch2017.azurewebsites.net");
+      var back = localStorage.getItem("back");
+      back == CONFIG.STUDENTAI
+        ? (connection = $.hubConnection("http://studentai.azurewebsites.net"))
+        : (connection = $.hubConnection(
+            "http://trycatch2017.azurewebsites.net"
+          ));
       var chatHubProxy = connection.createHubProxy("ChatHub");
 
       chatHubProxy.on("broadcastMessage", function(name, message) {
@@ -79,7 +88,7 @@ export default {
 
         if (token != null) {
           $.ajax({
-            url: localStorage.getItem('back') + 'user',
+            url: localStorage.getItem("back") + "user",
             type: "GET",
             beforeSend: function(xhr, settings) {
               xhr.setRequestHeader("Authorization", "Bearer " + token);
@@ -91,25 +100,45 @@ export default {
                 $("#displayname").val(),
                 " now connected!"
               );
-              $("#message")
-                .val("")
-                .focus();
             }
           });
 
           $("#sendMessage").on("click", function() {
-            chatHubProxy.invoke("Send", $("#displayname").val(), $("#message").val());
-            $("#message").empty();
+            chatHubProxy.invoke(
+              "Send",
+              $("#displayname").val(),
+              $("#message").val()
+            );
           });
         }
       });
+      if(this.stopConnection) {
+          connection.stop();
+      }
+    },
+    check: function() {
+      let token = localStorage.getItem("access_token");
+      if (!token) {
+        router.push("/login");
+      }
+    },
+    clearMessage: function () {
+      this.message = ''
     }
   },
-
+  created: function() {
+    auth.check()
+    this.start()
+  },
+  mounted() {
+    this.stopConnection = true
+  }
 };
 </script>
 
 
 <style lang="css">
-
+.main {
+  background-image: url("../../assets/space.jpg");
+}
 </style>
