@@ -64,7 +64,7 @@ main {
   background-image: url("../assets/spaceAndLogo.jpg");
   background-position: center;
   background-size: cover;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
