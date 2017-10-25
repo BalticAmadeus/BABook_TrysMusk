@@ -65,7 +65,7 @@ export default {
       if (!token) {
         router.push("/login");
       } else {
-        router.push("/");
+        router.push("/events");
       }
     },
     login(event) {
