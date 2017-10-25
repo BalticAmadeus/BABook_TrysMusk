@@ -233,6 +233,7 @@ export default {
         .then(function(response) {
           this.events = response.data;
           this.tempGroupId = groupId;
+          this.drawer2 = false
         });
       } else {
         this.$http.get("events", {
@@ -269,7 +270,6 @@ export default {
           var going = [];
           var notGoing = [];
           var unanswered = [];
-          console.log(response.data);
           response.data.forEach(function(element) {
             if (element.status == 1) {
               going.push(element);
@@ -306,7 +306,6 @@ export default {
         });
     },
     attend: function(eventId) {
-      console.log(this.auth)
       var data = {
         userId: this.auth.user.id,
         status: 1,
@@ -367,7 +366,9 @@ export default {
             Authorization: "Bearer " + localStorage.getItem("access_token")
           }
         })
-        .then(response => {});
+        .then(response => {
+          this.invitableUsersDialog = false
+        });
     }
   },
   computed: {

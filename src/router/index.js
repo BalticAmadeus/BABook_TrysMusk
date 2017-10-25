@@ -49,5 +49,6 @@ export default new Router({
       name: 'Room',
       component: Room
     }
-  ]
+  ],
+  mode: 'history'
 })

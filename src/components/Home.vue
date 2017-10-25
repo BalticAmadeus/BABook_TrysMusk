@@ -45,7 +45,6 @@
    },
    watch: {
          'select': function(){
-             console.log(this.select)
              localStorage.setItem('back', this.select)
              Vue.http.options.root = localStorage.getItem('back')
        }

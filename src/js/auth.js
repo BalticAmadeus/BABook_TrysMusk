@@ -17,7 +17,6 @@ export default {
                     { 'Authorization': 'Bearer ' + token }
                 }
             ).then(response => {
-                console.log(response.data)
                 this.user.authenticated = true
                 this.user.id = response.body.id
                 this.user.name = response.body.name
@@ -74,13 +73,14 @@ export default {
             }
         ).then(response => {
             context.error = false
-            if (response.data) {
+            if (response.data.access_token) {
                 localStorage.setItem('access_token', response.data.access_token)
                 Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
 
                 this.user.authenticated = true
                 this.user.profile = response.data.result
-                router.go('/events')
+                router.push('/events')
+                this.check()
             } else {
                 context.error = true
             }
