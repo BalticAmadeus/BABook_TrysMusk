@@ -62,11 +62,10 @@ $text-color: #9e9e9e;
 
 main {
   background-image: url("../assets/spaceAndLogo.jpg");
-  background-position: center;
-  background-size: cover;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  background-position: center center;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+  background-size:  cover;
 }
 </style>
 

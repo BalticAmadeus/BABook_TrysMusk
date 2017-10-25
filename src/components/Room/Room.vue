@@ -75,7 +75,7 @@ export default {
 
         if (token != null) {
           $.ajax({
-            url: "http://trycatch2017.azurewebsites.net/api/user",
+            url: localStorage.getItem('back') + 'user',
             type: "GET",
             beforeSend: function(xhr, settings) {
               xhr.setRequestHeader("Authorization", "Bearer " + token);
