@@ -15,7 +15,7 @@ Vue.use(VueResource)
 // Vue.http.options.root = 'http://studentai.azurewebsites.net/api/';
 // Vue.http.options.root = 'http://trycatch2017.azurewebsites.net/api/';
 // Vue.http.options.root = 'http://52.138.141.135/index.php/api/';
-Vue.http.options.root = localStorage.getItem('back')
+// Vue.http.options.root = localStorage.getItem('back')
 
 export default new Router({
   routes: [
@@ -49,6 +49,5 @@ export default new Router({
       name: 'Room',
       component: Room
     }
-  ],
-  mode: 'history'
+  ]
 })

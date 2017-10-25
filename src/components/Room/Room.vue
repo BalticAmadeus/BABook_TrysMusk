@@ -39,6 +39,7 @@
 
 <script>
 import Vue from "vue";
+import * as CONFIG from '../../config.js';
 
 export default {
   data() {
@@ -49,8 +50,11 @@ export default {
   },
   methods: {
     start: function() {
-      this.disabled = true
-      var connection = $.hubConnection("http://trycatch2017.azurewebsites.net");
+      this.disabled = true;
+      var connection;
+      var back = localStorage.getItem('back');
+      back == CONFIG.STUDENTAI ? connection = $.hubConnection("http://studentai.azurewebsites.net") 
+      : connection = $.hubConnection("http://trycatch2017.azurewebsites.net");
       var chatHubProxy = connection.createHubProxy("ChatHub");
 
       chatHubProxy.on("broadcastMessage", function(name, message) {
