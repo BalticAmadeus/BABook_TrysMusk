@@ -11,7 +11,6 @@
                               label="Email"
                               v-model="email"
                               :error-messages="emailErrors"
-                              @input="$v.email.$touch()"
                               @blur="$v.email.$touch()"
                               required
                       ></v-text-field>
@@ -23,7 +22,6 @@
                               label="Password"
                               v-model="password"
                               :error-messages="passwordErrors"
-                              @input="$v.password.$touch()"
                               @blur="$v.password.$touch()"
                               required
                       ></v-text-field>
@@ -71,6 +69,10 @@ export default {
     login(event) {
       event.preventDefault();
       auth.login(this, this.email, this.password);
+    },
+    validate: function() {
+      this.emailErrors()
+      this.passwordErrors()
     }
   },
   computed: {

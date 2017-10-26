@@ -8,7 +8,6 @@ export default {
         name: null
     },
     check: function () {
-        console.log("checking")
         let token = localStorage.getItem('access_token')
         if (token) {
             Vue.http.get(

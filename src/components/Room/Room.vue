@@ -43,6 +43,7 @@
 import Vue from "vue";
 import * as CONFIG from "../../config.js";
 import auth from "../../js/auth";
+import router from "../../router/index.js";
 
 export default {
   data() {
@@ -50,12 +51,10 @@ export default {
       disabled: false,
       auth: auth,
       message: '',
-      stopConnection: false
     };
   },
   methods: {
     start: function() {
-      this.stopConnection = false;
       this.disabled = true;
       var connection;
       var back = localStorage.getItem("back");
@@ -103,18 +102,33 @@ export default {
             }
           });
 
+          $(".logo").on("click", function(){
+          connection.stop();
+          });
+
           $("#sendMessage").on("click", function() {
             chatHubProxy.invoke(
               "Send",
               $("#displayname").val(),
               $("#message").val()
             );
+            $("#message").focus();
           });
+
+          $("#message").keyup(function(e){ 
+            var code = e.which; 
+              if(code==13)e.preventDefault();
+              if(code==13){
+                chatHubProxy.invoke(
+              "Send",
+              $("#displayname").val(),
+              $("#message").val()
+            );
+            $("#message").val("").focus();
+            } 
+          });   
         }
       });
-      if(this.stopConnection) {
-          connection.stop();
-      }
     },
     check: function() {
       let token = localStorage.getItem("access_token");
@@ -127,11 +141,8 @@ export default {
     }
   },
   created: function() {
-    auth.check()
+    this.check()
     this.start()
-  },
-  mounted() {
-    this.stopConnection = true
   }
 };
 </script>
@@ -140,5 +151,9 @@ export default {
 <style lang="css">
 .main {
   background-image: url("../../assets/space.jpg");
+  background-position: center center;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+  background-size:  cover;
 }
 </style>

@@ -72,7 +72,7 @@
           <v-flex xs12>
             <v-list three-line subheader>
               <div>
-                <p style="font-size: 20px;" v-for="comment in comments" :key="comment.name">{{ comment.name }} : {{ comment.comment }}</p>
+                <p style="font-size: 20px;" class="comments" v-for="comment in comments" :key="comment.name">{{ comment.name }} : {{ comment.comment }}</p>
               </div>
             </v-list>
           </v-flex>
@@ -398,5 +398,13 @@ div.dialog.dialog--active {
 }
 .main {
   background-image: url("../../assets/space.jpg");
+  background-position: center center;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+  background-size:  cover;
+}
+
+.comments {
+  word-wrap: break-word;
 }
 </style>

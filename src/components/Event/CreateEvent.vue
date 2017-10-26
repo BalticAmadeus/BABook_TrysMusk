@@ -127,7 +127,7 @@ export default {
     check: function() {
       let token = localStorage.getItem("access_token");
       if (!token) {
-        router.go("/login");
+        router.push("/login");
       }
     },
     submit: function() {
