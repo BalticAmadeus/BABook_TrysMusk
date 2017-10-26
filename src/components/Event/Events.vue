@@ -10,7 +10,7 @@
                     <div>
                       <div class="headline">Kas? {{ event.title }}</div>
                       <div>Kur? {{ event.location }}</div>
-                      <div>Kada? {{ event.date }}</div>
+                      <div>Kada? {{ event.date.replace('T', ' ') }}</div>
                       <div>{{ event.comment }}</div>
                       <v-btn v-if="event.status == 1" flat icon color="red" v-on:click="cancel(event.eventId)">
                         <v-icon>clear</v-icon>
@@ -38,7 +38,7 @@
       <v-dialog v-model="commentDialog" transition="dialog-bottom-transition">
         <v-card>
           <v-toolbar dark color="primary">
-            <v-btn icon @click.native="commentDialog = false">
+            <v-btn icon v-on:click="commentDialog = false">
               <v-icon>close</v-icon>
             </v-btn>
             <v-toolbar-title>Comments</v-toolbar-title>

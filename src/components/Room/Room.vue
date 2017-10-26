@@ -103,7 +103,7 @@ export default {
           });
 
           $(".logo").on("click", function(){
-          connection.stop();
+            connection.stop();
           });
 
           $("#sendMessage").on("click", function() {
