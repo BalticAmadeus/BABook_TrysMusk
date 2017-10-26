@@ -11,6 +11,7 @@
                       <div class="headline">Kas? {{ event.title }}</div>
                       <div>Kur? {{ event.location }}</div>
                       <div>Kada? {{ event.date.replace('T', ' ') }}</div>
+                      <div>{{ event.creatorName }}</div>
                       <div>{{ event.comment }}</div>
                       <v-btn v-if="event.status == 1" flat icon color="red" v-on:click="cancel(event.eventId)">
                         <v-icon>clear</v-icon>
