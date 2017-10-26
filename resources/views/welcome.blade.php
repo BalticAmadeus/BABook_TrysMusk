@@ -10,86 +10,112 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+        <style type="text/css">
+            #messages{
+                border: 1px solid black;
+                height: 300px;
+                margin-bottom: 8px;
+                overflow: scroll;
+                padding: 5px;
             }
         </style>
     </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+<body>
+    <ul class="chat"></ul>
+    <hr>
+    <form>
+        <textarea style="width: 100%; height: 50px"></textarea>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        var socket = io(':6001');
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+        function appendMessage(data) {
+            $('.chat').append(
+                $('<li/>').text(data.message)
+            );
+        }
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+        $('form').on('submit', function (data) {
+            var text = $('textarea').val(),
+                msg = {message : text};
+
+            socket.send(msg);
+            appendMessage(msg);
+
+            $('textarea').val('');
+
+            return false;
+        });
+
+        socket.on('message', function (data) {
+           appendMessage(data);
+        });
+
+        /*socket.on('message', function (data) {
+            console.log('From server: ', data)
+        }).on('server-info', function (data) {
+            console.info(data);
+        });*/
+    </script>
+
+
+    {{--<div class="container spark-screen">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Chat Message Module</div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-lg-8" >
+                                <div id="messages" ></div>
+                            </div>
+                            <div class="col-lg-8" >
+                                <form action="sendmessage" method="POST">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}" >
+                                    --}}{{--<input type="hidden" name="user" value="{{ Auth::user()->name }}" >--}}{{--
+                                    <textarea class="form-control msg"></textarea>
+                                    <br/>
+                                    <input type="button" value="Send" class="btn btn-success send-msg">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+    <script>
+        var socket = io();
+        socket.on('message', function (data) {
+            data = jQuery.parseJSON(data);
+            console.log(data.user);
+            $( "#messages" ).append( "<strong>"+data.user+":</strong><p>"+data.message+"</p>" );
+        });
+        $(".send-msg").click(function(e){
+            e.preventDefault();
+            var token = $("input[name='_token']").val();
+            var user = $("input[name='user']").val();
+            var msg = $(".msg").val();
+            if(msg != ''){
+                $.ajax({
+                    type: "POST",
+                    url: '{!! URL::to("sendmessage") !!}',
+                    dataType: "json",
+                    data: {'_token':token,'message':msg,'user':user},
+                    success:function(data){
+                        console.log(data);
+                        $(".msg").val('');
+                    }
+                });
+            }else{
+                alert("Please Add Message.");
+            }
+        })
+    </script>--}}
+</body>
 </html>
