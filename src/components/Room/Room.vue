@@ -62,7 +62,6 @@ export default {
         var encodedMsg = $("<div />")
           .text(message)
           .html();
-        // Add the message to the page.
         $("#discussion").append(
           "<li><strong>" +
             encodedName +
@@ -71,10 +70,9 @@ export default {
             "</li>"
         );
       });
-
       connection.start().done(function() {
         var token = localStorage.getItem("access_token");
-
+        var name = '';
         if (token != null) {
           $.ajax({
             url: localStorage.getItem("back") + "user",
@@ -84,6 +82,7 @@ export default {
             },
             success: function(res) {
               $("#displayname").val(res.name);
+              name = res.name;
               chatHubProxy.invoke(
                 "Send",
                 $("#displayname").val(),
@@ -93,14 +92,32 @@ export default {
           });
 
           $(".logo").on("click", function(){
+            $("#displayname").val(name);
+            chatHubProxy.invoke(
+                "Send",
+                $("#displayname").val(),
+                " disconnected!"
+              );
           connection.stop();
           });
 
           window.onbeforeunload = function(e) {
+            $("#displayname").val(name);
+            chatHubProxy.invoke(
+                "Send",
+                $("#displayname").val(),
+                " disconnected!"
+              );
             connection.stop();
             };
 
             window.onhashchange = function() {
+              $("#displayname").val(name);
+              chatHubProxy.invoke(
+                "Send",
+                $("#displayname").val(),
+                " disconnected!"
+              );
               connection.stop();
             }
 
