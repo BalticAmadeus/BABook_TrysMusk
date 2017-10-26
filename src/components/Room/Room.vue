@@ -2,14 +2,6 @@
      <v-layout row>
             <v-flex xs12 sm8 offset-sm2>
                 <v-card>
-                    <v-card-title>
-                        <v-flex class="text-xs-center">
-                            <!-- <v-btn round primary v-on:click="start" :disabled="disabled">
-                                Start discussion
-                            </v-btn> -->
-                        </v-flex>
-                        <!-- <v-btn id="stopCon">Stop</v-btn> -->
-                    </v-card-title>
                     <v-card-text>
                         <v-flex xs12 sm10 offset-sm1>
                             <div id="discussion"></div>
@@ -48,14 +40,12 @@ import router from "../../router/index.js";
 export default {
   data() {
     return {
-      disabled: false,
       auth: auth,
       message: '',
     };
   },
   methods: {
     start: function() {
-      this.disabled = true;
       var connection;
       var back = localStorage.getItem("back");
       back == CONFIG.STUDENTAI
@@ -103,8 +93,16 @@ export default {
           });
 
           $(".logo").on("click", function(){
-            connection.stop();
+          connection.stop();
           });
+
+          window.onbeforeunload = function(e) {
+            connection.stop();
+            };
+
+            window.onhashchange = function() {
+              connection.stop();
+            }
 
           $("#sendMessage").on("click", function() {
             chatHubProxy.invoke(
@@ -112,7 +110,6 @@ export default {
               $("#displayname").val(),
               $("#message").val()
             );
-            $("#message").focus();
           });
 
           $("#message").keyup(function(e){ 
